@@ -1,0 +1,82 @@
+name: pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "app.js"
+      - "styles.css"
+      - "dashboard/current.json"
+      - ".nojekyll"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify NEW-only data contract
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p=json.loads(Path("dashboard/current.json").read_text(encoding="utf-8"))
+          assert p["system_id"] == "NEW_SYSTEM"
+          assert p["data_boundary"] == "isolated"
+          assert p["external_evidence_sharing"] is False
+          assert p["permissions"]["trade_permission"] is False
+          assert set(p["modules"]) == {
+              "formal_weekly",
+              "candidate_weekly",
+              "watchlist",
+              "opportunities",
+              "system_health",
+          }
+          assert p["navigation"] == [
+              "总览","周报","关注标的","新机会","研究进展","系统状态"
+          ]
+          PY
+
+      - name: Assemble static site
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/dashboard
+          cp index.html app.js styles.css .nojekyll _site/
+          cp dashboard/current.json _site/dashboard/current.json
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
