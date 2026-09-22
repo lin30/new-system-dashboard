@@ -28,6 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Verify frontend JavaScript
+        run: node --check app.js
+
       - name: Verify NEW-only data contract
         run: |
           set -euo pipefail
