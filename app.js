@@ -58,10 +58,28 @@ function watchlist(p){
 }
 function opportunities(p){
   const o=moduleData(p,"opportunities"), fl=o.fast_lane_acceptance||{};
+  const rows=o.nomination_records||[];
+  const gateLabel={
+    G1_compute_accelerator:"算力芯片/加速器",
+    G4_data_movement:"数据传输/互联",
+    G5_board_package_manufacturing:"PCB/封装制造",
+    G6_power_delivery:"电源/供配电",
+    G7_thermal_site:"液冷/数据中心基础设施",
+    G8_specified_equipment_material:"专用设备/材料"
+  };
+  const tableRows=rows.map((x,i)=>'<tr>'+
+    '<td>'+(i+1)+'</td>'+
+    '<td><strong>'+esc(x.stock_name)+'</strong><div class="small muted">'+esc((x.security_id||"").split(":").pop())+'</div></td>'+
+    '<td>'+esc(gateLabel[x.gate_id]||x.gate_id)+'<div class="small muted">'+esc(x.gate_id)+'</div></td>'+
+    '<td><span class="pill">'+esc(x.evidence_label)+'</span><div class="small muted">'+esc(x.evidence_state)+'</div></td>'+
+    '<td>'+esc(x.capture_quality_rank)+'</td>'+
+    '<td>'+esc(fmtTime(x.observed_at))+'</td>'+
+    '</tr>').join("");
   return '<div class="grid">'+
-    card("Nomination",kv("候选线索",o.nomination_count||0)+'<div class="divider"></div>'+badge("NOMINATION"),4)+
+    card("Nomination",'<div class="row between">'+kv("提名记录",o.nomination_record_count||o.nomination_count||0)+badge("NOMINATION")+'</div><div class="divider"></div><div class="small muted">唯一公司 '+esc(o.unique_company_count||"—")+' 家；同一公司命中多个 gate 时保留多条记录。</div>',4)+
     card("Fresh Trigger",kv("新触发",o.fresh_trigger_n||0)+'<div class="small muted">TTL '+esc(o.ttl_days||"—")+' 天</div>',4)+
     card("Fast Lane",kv("Accepted",fl.accepted_n??0)+'<div class="divider"></div><div class="small muted">'+esc(fl.note||"—")+'</div>',4)+
+    card("P3 新候选 · 全部记录",'<div class="table-scroll"><table><thead><tr><th>#</th><th>公司</th><th>研究 Gate</th><th>证据状态</th><th>质量档</th><th>观察时间</th></tr></thead><tbody>'+tableRows+'</tbody></table></div><div class="small muted" style="margin-top:10px">'+esc(o.nomination_semantics||"")+'</div>',12)+
     card("主要阻断",'<div class="pill-list">'+(o.main_blockers||[]).map(x=>'<span class="pill">'+esc(x)+'</span>').join("")+'</div>',12)+
   '</div>';
 }
