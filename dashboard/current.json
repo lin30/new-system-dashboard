@@ -1,0 +1,259 @@
+{
+  "authority_legend": {
+    "CANDIDATE": "已验证但待采用",
+    "CONTINUITY": "历史已验证判断继续有效",
+    "FORMAL": "正式权威",
+    "NOMINATION": "研究线索，不等于正式候选",
+    "SYSTEM": "系统审计层"
+  },
+  "data_boundary": "isolated",
+  "degraded_modules": [],
+  "external_evidence_sharing": false,
+  "generated_at": "2026-09-22T14:35:00+08:00",
+  "last_successful_snapshot": null,
+  "modules": {
+    "candidate_weekly": {
+      "data": {
+        "action_row_count": 1380,
+        "adoption_pending": true,
+        "artifact_id": "10673652770",
+        "as_of": "2026-W39",
+        "authority": "CANDIDATE",
+        "case_denominator": 1380,
+        "continuity": {
+          "downgrade": 1,
+          "invalidated": 0,
+          "no_change": 1377,
+          "upgrade": 2
+        },
+        "current_conclusion_authority": false,
+        "deep_research_outcome_counts": {
+          "wait_disclosure": 7,
+          "watch": 21
+        },
+        "deep_research_queue_n": 28,
+        "evidence_maturity_counts": {
+          "realized": 26,
+          "recall_only": 1354
+        },
+        "evidence_signal_counts": {
+          "E2_first_party_operations_demand": 4,
+          "E3_industry_cross_validation": 7,
+          "E4_market_expectation": 4
+        },
+        "formal_current_written": false,
+        "github_run_id": "35677224787",
+        "known_changed_securities": [
+          {
+            "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
+            "security_id": "SZSE:001389",
+            "stock_name": "广合科技",
+            "weekly_change": "DOWNGRADE"
+          }
+        ],
+        "not_an_order": true,
+        "report_attack_incremental_coverage": {
+          "captured_n": 10,
+          "coverage_complete": true
+        },
+        "upgrade_detail_materialized": false,
+        "upgrade_detail_note": "2个UPGRADE已在连续性统计中确认；具体对象需从正式candidate artifact继续结构化抽取，未结构化前不得猜测。"
+      },
+      "data_from_previous_snapshot": false,
+      "source_refs": [
+        "github-run:35677224787",
+        "artifact:10673652770"
+      ],
+      "status": "verified"
+    },
+    "formal_weekly": {
+      "data": {
+        "as_of": "2026-W37",
+        "authority": "FORMAL",
+        "current_conclusion_authority": true,
+        "formal_cards": [
+          {
+            "security_id": "SZSE:001389",
+            "stock_name": "广合科技"
+          },
+          {
+            "security_id": "SZSE:300502",
+            "stock_name": "新易盛"
+          },
+          {
+            "security_id": "SZSE:300308",
+            "stock_name": "中际旭创"
+          },
+          {
+            "security_id": "SZSE:301150",
+            "stock_name": "中一科技"
+          }
+        ],
+        "formal_current_written": true,
+        "not_an_order": true,
+        "release_sha": "30dfdea009e1bdbb1c971f868c41dab94f836955",
+        "weekly_current_sha256": "07d712fce7224e51d7ece78378ae9362e23ae19941ad939fe7660c91a3f1e43e"
+      },
+      "data_from_previous_snapshot": false,
+      "source_refs": [
+        "history-baseline/current.json",
+        "weekly-current.json"
+      ],
+      "status": "verified"
+    },
+    "opportunities": {
+      "data": {
+        "authority": "NOMINATION",
+        "bounded_probe_n": 0,
+        "company_capture_mechanism_n": 0,
+        "current_conclusion_authority": false,
+        "early_research_n": 0,
+        "economic_opportunity_n": 0,
+        "fast_lane_acceptance": {
+          "accepted_n": 0,
+          "authority": "NOMINATION",
+          "evaluated_n": 0,
+          "note": "P4 acceptance未形成可升级为CANDIDATE的对象"
+        },
+        "fast_offense_evaluated_n": 0,
+        "formal_card_eligible": false,
+        "formal_current_write_allowed": false,
+        "fresh_trigger_n": 0,
+        "main_blockers": [
+          "stale_nomination"
+        ],
+        "nomination_count": 48,
+        "stable_case_bound_n": 0,
+        "ttl_days": 10
+      },
+      "data_from_previous_snapshot": false,
+      "source_refs": [
+        "github-run:35678568640",
+        "github-run:35679218859"
+      ],
+      "status": "verified"
+    },
+    "system_health": {
+      "data": {
+        "authority": "SYSTEM",
+        "data_boundary": "NEW_SYSTEM_ONLY",
+        "external_evidence_sharing": false,
+        "external_monitor_sources_attached": false,
+        "forbidden_external_modules": [
+          "industry",
+          "macro",
+          "robotics",
+          "portfolio"
+        ],
+        "formal_current_unchanged": true,
+        "not_an_order": true,
+        "p2b": "PASS",
+        "p2c": "PASS",
+        "p3": "PASS",
+        "p4": "PASS"
+      },
+      "data_from_previous_snapshot": false,
+      "source_refs": [
+        "p2b:35679218849",
+        "p2c:35677224787",
+        "p3:35678568640",
+        "p4:35679218859"
+      ],
+      "status": "verified"
+    },
+    "watchlist": {
+      "data": {
+        "authority": "CONTINUITY",
+        "items": [
+          {
+            "authority": "FORMAL",
+            "continuity": "保留",
+            "current_role": "重点研究",
+            "current_state": "等待行情",
+            "next_trigger": "进入技术复核区或出现新的正式业绩上修",
+            "security_id": "SZSE:300308",
+            "stock_name": "中际旭创"
+          },
+          {
+            "authority": "FORMAL",
+            "continuity": "保留",
+            "current_role": "重点研究",
+            "current_state": "等待行情",
+            "security_id": "SZSE:300502",
+            "stock_name": "新易盛"
+          },
+          {
+            "authority": "FORMAL",
+            "continuity": "保留",
+            "current_role": "重点研究",
+            "security_id": "SZSE:301150",
+            "stock_name": "中一科技"
+          },
+          {
+            "authority": "CONTINUITY",
+            "blockers": [
+              "compute_scope_unresolved",
+              "business_materiality_unknown",
+              "metric_unresolved"
+            ],
+            "current_role": "formal stable denominator历史重点",
+            "current_state": "观察",
+            "security_id": "SSE:600183",
+            "stable_case_count": 2,
+            "stock_name": "生益科技",
+            "thesis_invalidated": false,
+            "weekly_change": "NO_CHANGE"
+          },
+          {
+            "authority": "NOMINATION",
+            "blocker": "stale_nomination",
+            "continuity": "历史观察保留",
+            "current_role": "v2 nomination历史重点观察",
+            "current_state": "等待新触发",
+            "fresh_trigger": false,
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "security_id": "SZSE:301018",
+            "stock_name": "申菱环境",
+            "thesis_invalidated": false,
+            "ttl_days": 10
+          },
+          {
+            "authority": "CONTINUITY",
+            "current_role": "历史卡片",
+            "current_state": "退出当前卡片",
+            "security_id": "SZSE:001389",
+            "stock_name": "广合科技",
+            "weekly_change": "DOWNGRADE"
+          }
+        ]
+      },
+      "data_from_previous_snapshot": false,
+      "source_refs": [
+        "p2c-w39-candidate",
+        "p3-w38-nomination-adapter"
+      ],
+      "status": "verified"
+    }
+  },
+  "navigation": [
+    "总览",
+    "周报",
+    "关注标的",
+    "新机会",
+    "研究进展",
+    "系统状态"
+  ],
+  "not_an_order": true,
+  "overall_status": "healthy",
+  "permissions": {
+    "broker_connection": false,
+    "execution_permission": false,
+    "paper_action_enabled": false,
+    "trade_permission": false
+  },
+  "preserved_modules": [],
+  "schema_version": "dashboard_snapshot.v1",
+  "snapshot_sha256": "d763be9fcc3e025f351e6a97c2f80145492e6d5bb8b80dc928ac197c8facc7c9",
+  "source_cutoff": "2026-09-22T14:35:00+08:00",
+  "system_id": "NEW_SYSTEM"
+}
