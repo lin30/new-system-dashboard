@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>NEW系统研究中心</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="eyebrow">NEW SYSTEM · READ ONLY</div>
+      <h1>NEW系统研究中心</h1>
+      <div id="snapshotMeta" class="meta">正在读取最新快照…</div>
+    </div>
+    <div class="guard">
+      <span class="dot"></span>
+      <span>trade_permission = false</span>
+    </div>
+  </header>
+
+  <nav id="nav" class="nav" aria-label="主导航"></nav>
+
+  <main id="app">
+    <section class="loading card">
+      <h2>读取最新数据</h2>
+      <p>页面固定，数据来自 dashboard/current.json。</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>NEW系统与云端监控系统完全隔离，不共享证据、评级、watchlist 或结论。</span>
+    <span id="snapshotHash"></span>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
