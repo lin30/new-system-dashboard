@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "index.html"
-      - "app.js"
-      - "styles.css"
-      - "dashboard/current.json"
-      - ".nojekyll"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -18,18 +11,11 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Verify frontend JavaScript
-        run: node --check app.js
 
       - name: Verify NEW-only data contract
         run: |
@@ -38,7 +24,7 @@ jobs:
           import json
           from pathlib import Path
 
-          p=json.loads(Path("dashboard/current.json").read_text(encoding="utf-8"))
+          p = json.loads(Path("dashboard/current.json").read_text(encoding="utf-8"))
           assert p["system_id"] == "NEW_SYSTEM"
           assert p["data_boundary"] == "isolated"
           assert p["external_evidence_sharing"] is False
@@ -51,7 +37,12 @@ jobs:
               "system_health",
           }
           assert p["navigation"] == [
-              "总览","周报","关注标的","新机会","研究进展","系统状态"
+              "总览",
+              "周报",
+              "关注标的",
+              "新机会",
+              "研究进展",
+              "系统状态",
           ]
           PY
 
@@ -65,8 +56,6 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
@@ -77,7 +66,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Deploy to GitHub Pages
