@@ -1,770 +1,117 @@
 {
-  "authority_legend": {
-    "CANDIDATE": "已验证但待采用",
-    "CONTINUITY": "历史已验证判断继续有效",
-    "FORMAL": "正式权威",
-    "NOMINATION": "研究线索，不等于正式候选",
-    "SYSTEM": "系统审计层"
-  },
   "data_boundary": "isolated",
-  "degraded_modules": [],
+  "degraded_modules": [
+    "candidate_weekly",
+    "opportunities"
+  ],
   "external_evidence_sharing": false,
-  "generated_at": "2026-09-22T15:40:00+08:00",
-  "last_successful_snapshot": "2026-09-22T14:35:00+08:00",
+  "generated_at": "2026-09-29T15:04:20.681198+00:00",
   "modules": {
     "candidate_weekly": {
       "data": {
-        "action_row_count": 1380,
-        "adoption_pending": true,
-        "artifact_id": "10673652770",
-        "as_of": "2026-W39",
-        "authority": "CANDIDATE",
-        "case_denominator": 1380,
-        "continuity": {
-          "downgrade": 1,
-          "invalidated": 0,
-          "no_change": 1377,
-          "upgrade": 2
-        },
-        "current_conclusion_authority": false,
-        "deep_research_outcome_counts": {
-          "wait_disclosure": 7,
-          "watch": 21
-        },
-        "deep_research_queue_n": 28,
-        "evidence_maturity_counts": {
-          "realized": 26,
-          "recall_only": 1354
-        },
-        "evidence_signal_counts": {
-          "E2_first_party_operations_demand": 4,
-          "E3_industry_cross_validation": 7,
-          "E4_market_expectation": 4
-        },
-        "formal_current_written": false,
-        "github_run_id": "35677224787",
-        "known_changed_securities": [
-          {
-            "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
-            "security_id": "SZSE:001389",
-            "stock_name": "广合科技",
-            "weekly_change": "DOWNGRADE"
-          }
-        ],
-        "not_an_order": true,
-        "report_attack_incremental_coverage": {
-          "captured_n": 10,
-          "coverage_complete": true
-        },
-        "upgrade_detail_materialized": false,
-        "upgrade_detail_note": "2个UPGRADE已在连续性统计中确认；具体对象需从正式candidate artifact继续结构化抽取，未结构化前不得猜测。"
+        "authority": "CANDIDATE"
       },
       "data_from_previous_snapshot": false,
-      "source_refs": [
-        "github-run:35677224787",
-        "artifact:10673652770"
-      ],
-      "status": "verified"
+      "source_refs": [],
+      "status": "unavailable"
     },
     "formal_weekly": {
       "data": {
-        "as_of": "2026-W37",
+        "as_of": "2026-W40",
         "authority": "FORMAL",
-        "current_conclusion_authority": true,
+        "card_n": 3,
+        "case_denominator": 1380,
         "formal_cards": [
           {
-            "security_id": "SZSE:001389",
-            "stock_name": "广合科技"
-          },
-          {
+            "case_key": "company:SZSE:300502|economic_output|optical_transceiver_interconnect",
             "security_id": "SZSE:300502",
             "stock_name": "新易盛"
           },
           {
+            "case_key": "company:SZSE:300308|economic_output|optical_transceiver_interconnect",
             "security_id": "SZSE:300308",
             "stock_name": "中际旭创"
           },
           {
-            "security_id": "SZSE:301150",
-            "stock_name": "中一科技"
+            "case_key": "company:SZSE:301511|economic_output|electronic_copper_foil",
+            "security_id": "SZSE:301511",
+            "stock_name": "德福科技"
           }
         ],
         "formal_current_written": true,
         "not_an_order": true,
-        "release_sha": "30dfdea009e1bdbb1c971f868c41dab94f836955",
-        "weekly_current_sha256": "07d712fce7224e51d7ece78378ae9362e23ae19941ad939fe7660c91a3f1e43e"
+        "release_sha": "ddce818bdffed90efd416de6be8afaf33d9200b0",
+        "status_counts": {
+          "observe": 1369,
+          "wait_evidence": 7,
+          "wait_market": 4
+        },
+        "weekly_current_sha256": "7ba002716e85b16b0e808f170b759d34c90e7e4b60b7909658ed4f2106aee1ca"
       },
       "data_from_previous_snapshot": false,
+      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "history-baseline/current.json",
-        "weekly-current.json"
+        "weekly-current:sha256:7ba002716e85b16b0e808f170b759d34c90e7e4b60b7909658ed4f2106aee1ca",
+        "formal-report:sha256:74a0491528c271251e8465bf0f112faafd8143b9c61b2ae6c11cc40b8f7ca61c"
       ],
       "status": "verified"
     },
     "opportunities": {
       "data": {
-        "authority": "NOMINATION",
-        "bounded_probe_n": 0,
-        "company_capture_mechanism_n": 0,
-        "current_conclusion_authority": false,
-        "early_research_n": 0,
-        "economic_opportunity_n": 0,
-        "fast_lane_acceptance": {
-          "accepted_n": 0,
-          "authority": "NOMINATION",
-          "evaluated_n": 0,
-          "note": "P4 acceptance未形成可升级为CANDIDATE的对象"
-        },
-        "fast_offense_evaluated_n": 0,
-        "formal_card_eligible": false,
-        "formal_current_write_allowed": false,
-        "fresh_trigger_n": 0,
-        "main_blockers": [
-          "stale_nomination"
-        ],
-        "nomination_count": 48,
-        "nomination_record_count": 48,
-        "nomination_records": [
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G7_thermal_site",
-            "observed_at": "2026-08-08T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "BSE:920808",
-            "stock_name": "曙光数创"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G7_thermal_site",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:600160",
-            "stock_name": "巨化股份"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 3,
-            "evidence_label": "realized_offense",
-            "evidence_state": "confirmed",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:600183",
-            "stock_name": "生益科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G1_compute_accelerator",
-            "observed_at": "2026-08-08T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:601138",
-            "stock_name": "工业富联"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-08T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:601138",
-            "stock_name": "工业富联"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-11T17:22:03+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:603061",
-            "stock_name": "金海通"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:603256",
-            "stock_name": "宏和科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:603881",
-            "stock_name": "数据港"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G7_thermal_site",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:603881",
-            "stock_name": "数据港"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:605589",
-            "stock_name": "圣泉集团"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:605589",
-            "stock_name": "圣泉集团"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G1_compute_accelerator",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688041",
-            "stock_name": "海光信息"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-11T17:22:03+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688147",
-            "stock_name": "微导纳米"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-04-29T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688183",
-            "stock_name": "生益电子"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688388",
-            "stock_name": "嘉元科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688498",
-            "stock_name": "源杰科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688498",
-            "stock_name": "源杰科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688519",
-            "stock_name": "南亚新材"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-11T17:22:03+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688535",
-            "stock_name": "华海诚科"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G6_power_delivery",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688676",
-            "stock_name": "金盘科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688702",
-            "stock_name": "盛科通信"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-11T17:22:03+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688729",
-            "stock_name": "屹唐股份"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SSE:688981",
-            "stock_name": "中芯国际"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:000063",
-            "stock_name": "中兴通讯"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002130",
-            "stock_name": "沃尔核材"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002185",
-            "stock_name": "华天科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002335",
-            "stock_name": "科华数据"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G6_power_delivery",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002335",
-            "stock_name": "科华数据"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G6_power_delivery",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002364",
-            "stock_name": "中恒电气"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-11T08:10:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002463",
-            "stock_name": "沪电股份"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G7_thermal_site",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002536",
-            "stock_name": "飞龙股份"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002536",
-            "stock_name": "飞龙股份"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002916",
-            "stock_name": "深南电路"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G6_power_delivery",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:002922",
-            "stock_name": "伊戈尔"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-06-10T00:00:00Z",
-            "payer_supported": true,
-            "security_id": "SZSE:300308",
-            "stock_name": "中际旭创"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300383",
-            "stock_name": "光环新网"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G7_thermal_site",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300383",
-            "stock_name": "光环新网"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-04-21T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300394",
-            "stock_name": "天孚通信"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G5_board_package_manufacturing",
-            "observed_at": "2025-04-22T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300476",
-            "stock_name": "胜宏科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-08T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300502",
-            "stock_name": "新易盛"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-03-28T00:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300548",
-            "stock_name": "长芯博创"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-11T17:22:03+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300567",
-            "stock_name": "精测电子"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300604",
-            "stock_name": "长川科技"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G6_power_delivery",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300870",
-            "stock_name": "欧陆通"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:300913",
-            "stock_name": "兆龙互连"
-          },
-          {
-            "binding_order_verified": true,
-            "capture_quality_rank": 2,
-            "evidence_label": "inflection_offense",
-            "evidence_state": "confirmed",
-            "gate_id": "G7_thermal_site",
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:301018",
-            "stock_name": "申菱环境"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G4_data_movement",
-            "observed_at": "2026-08-08T15:13:10+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:301165",
-            "stock_name": "锐捷网络"
-          },
-          {
-            "binding_order_verified": false,
-            "capture_quality_rank": 1,
-            "evidence_label": "forward_probe",
-            "evidence_state": "pending_evidence",
-            "gate_id": "G8_specified_equipment_material",
-            "observed_at": "2026-08-10T14:05:30+08:00",
-            "payer_supported": true,
-            "security_id": "SZSE:301200",
-            "stock_name": "大族数控"
-          }
-        ],
-        "nomination_semantics": "48条研究提名记录；同一security_id可因命中不同gate重复出现，不等于48家不同公司",
-        "stable_case_bound_n": 0,
-        "ttl_days": 10,
-        "unique_company_count": 41
+        "authority": "NOMINATION"
       },
       "data_from_previous_snapshot": false,
-      "source_refs": [
-        "github-run:35678568640",
-        "artifact:10673114555",
-        "p3-nomination:a9c71605a50d50f14fbb4d744f5e6526890d37f839f103957cdb2210093706f7"
-      ],
-      "status": "verified"
+      "source_refs": [],
+      "status": "unavailable"
     },
     "system_health": {
       "data": {
         "authority": "SYSTEM",
-        "data_boundary": "NEW_SYSTEM_ONLY",
-        "external_evidence_sharing": false,
-        "external_monitor_sources_attached": false,
-        "forbidden_external_modules": [
-          "industry",
-          "macro",
-          "robotics",
-          "portfolio"
-        ],
-        "formal_current_unchanged": true,
         "not_an_order": true,
-        "p2b": "PASS",
-        "p2c": "PASS",
-        "p3": "PASS",
-        "p4": "PASS"
+        "weekly_current_sha256": "7ba002716e85b16b0e808f170b759d34c90e7e4b60b7909658ed4f2106aee1ca"
       },
       "data_from_previous_snapshot": false,
+      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "p2b:35679218849",
-        "p2c:35677224787",
-        "p3:35678568640",
-        "p4:35679218859"
+        "weekly-current:sha256:7ba002716e85b16b0e808f170b759d34c90e7e4b60b7909658ed4f2106aee1ca"
       ],
       "status": "verified"
     },
     "watchlist": {
       "data": {
-        "authority": "CONTINUITY",
+        "authority": "FORMAL",
         "items": [
           {
             "authority": "FORMAL",
-            "continuity": "保留",
-            "current_role": "重点研究",
-            "current_state": "等待行情",
-            "next_trigger": "进入技术复核区或出现新的正式业绩上修",
-            "security_id": "SZSE:300308",
-            "stock_name": "中际旭创"
-          },
-          {
-            "authority": "FORMAL",
-            "continuity": "保留",
-            "current_role": "重点研究",
-            "current_state": "等待行情",
+            "case_key": "company:SZSE:300502|economic_output|optical_transceiver_interconnect",
+            "current_role": "正式周报研究卡",
+            "current_state": "观察",
             "security_id": "SZSE:300502",
             "stock_name": "新易盛"
           },
           {
             "authority": "FORMAL",
-            "continuity": "保留",
-            "current_role": "重点研究",
-            "security_id": "SZSE:301150",
-            "stock_name": "中一科技"
+            "case_key": "company:SZSE:300308|economic_output|optical_transceiver_interconnect",
+            "current_role": "正式周报研究卡",
+            "current_state": "等待行情",
+            "security_id": "SZSE:300308",
+            "stock_name": "中际旭创"
           },
           {
-            "authority": "CONTINUITY",
-            "blockers": [
-              "compute_scope_unresolved",
-              "business_materiality_unknown",
-              "metric_unresolved"
-            ],
-            "current_role": "formal stable denominator历史重点",
-            "current_state": "观察",
-            "security_id": "SSE:600183",
-            "stable_case_count": 2,
-            "stock_name": "生益科技",
-            "thesis_invalidated": false,
-            "weekly_change": "NO_CHANGE"
-          },
-          {
-            "authority": "NOMINATION",
-            "blocker": "stale_nomination",
-            "continuity": "历史观察保留",
-            "current_role": "v2 nomination历史重点观察",
-            "current_state": "等待新触发",
-            "fresh_trigger": false,
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "security_id": "SZSE:301018",
-            "stock_name": "申菱环境",
-            "thesis_invalidated": false,
-            "ttl_days": 10
-          },
-          {
-            "authority": "CONTINUITY",
-            "current_role": "历史卡片",
-            "current_state": "退出当前卡片",
-            "security_id": "SZSE:001389",
-            "stock_name": "广合科技",
-            "weekly_change": "DOWNGRADE"
+            "authority": "FORMAL",
+            "case_key": "company:SZSE:301511|economic_output|electronic_copper_foil",
+            "current_role": "正式周报研究卡",
+            "current_state": "等待行情",
+            "security_id": "SZSE:301511",
+            "stock_name": "德福科技"
           }
         ]
       },
       "data_from_previous_snapshot": false,
+      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "p2c-w39-candidate",
-        "p3-w38-nomination-adapter"
+        "weekly-current:sha256:7ba002716e85b16b0e808f170b759d34c90e7e4b60b7909658ed4f2106aee1ca",
+        "formal-report:sha256:74a0491528c271251e8465bf0f112faafd8143b9c61b2ae6c11cc40b8f7ca61c"
       ],
       "status": "verified"
     }
@@ -778,7 +125,7 @@
     "系统状态"
   ],
   "not_an_order": true,
-  "overall_status": "healthy",
+  "overall_status": "partial",
   "permissions": {
     "broker_connection": false,
     "execution_permission": false,
@@ -787,7 +134,7 @@
   },
   "preserved_modules": [],
   "schema_version": "dashboard_snapshot.v1",
-  "snapshot_sha256": "2dc1710c152a396a78152ea810b2b8607045950c3644c13668e772a1171d466e",
-  "source_cutoff": "2026-09-22T15:40:00+08:00",
+  "snapshot_sha256": "ab372555cf2bfbb7b06fc1742d02dbb24e79e5e3ed6ec07612477beb3e1545b2",
+  "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
   "system_id": "NEW_SYSTEM"
 }

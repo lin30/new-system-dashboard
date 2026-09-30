@@ -11,6 +11,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,15 +24,30 @@ jobs:
       - name: Verify NEW-only data contract
         run: |
           set -euo pipefail
-          python - <<'PY'
+          python3 - <<'PY'
           import json
           from pathlib import Path
 
           p = json.loads(Path("dashboard/current.json").read_text(encoding="utf-8"))
+          import hashlib
+          assert hashlib.sha256(Path("dashboard/current.json").read_bytes()).hexdigest() == "51254176c2306adccc3151eba6f6c5aa34933c28fc20b56e9df75aa812fdf8e5"
           assert p["system_id"] == "NEW_SYSTEM"
           assert p["data_boundary"] == "isolated"
           assert p["external_evidence_sharing"] is False
-          assert p["permissions"]["trade_permission"] is False
+          for key in ("trade_permission","execution_permission","broker_connection","paper_action_enabled"):
+              assert p["permissions"][key] is False
+          assert p["not_an_order"] is True
+          unsigned={k:v for k,v in p.items() if k!="snapshot_sha256"}
+          encoded=json.dumps(unsigned,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
+          assert hashlib.sha256(encoded).hexdigest()==p["snapshot_sha256"]
+          assert p["snapshot_sha256"] == "ab372555cf2bfbb7b06fc1742d02dbb24e79e5e3ed6ec07612477beb3e1545b2"
+          assert p["modules"]["candidate_weekly"]["status"] == "unavailable"
+          assert p["modules"]["candidate_weekly"]["data"] == {"authority":"CANDIDATE"}
+          assert p["modules"]["opportunities"]["status"] == "unavailable"
+          assert p["modules"]["opportunities"]["data"] == {"authority":"NOMINATION"}
+          formal = p["modules"]["formal_weekly"]["data"]
+          assert formal["as_of"] == "2026-W40" and formal["case_denominator"] == 1380 and formal["card_n"] == 3
+          assert {card["security_id"] for card in formal["formal_cards"]} == {"SZSE:300502","SZSE:300308","SZSE:301511"}
           assert set(p["modules"]) == {
               "formal_weekly",
               "candidate_weekly",

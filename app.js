@@ -15,7 +15,7 @@ const MODULE_LABELS={
   formal_weekly:"FORMAL 正式卡片",
   candidate_weekly:"周报变化",
   watchlist:"关注标的",
-  opportunities:"P3 新机会",
+  opportunities:"当前条件与新机会",
   system_health:"系统状态"
 };
 const GATE_LABELS={
@@ -81,7 +81,7 @@ function unique(values){
 function contextAuthority(ctx){
   if(ctx.module==="formal_weekly") return "FORMAL";
   if(ctx.module==="candidate_weekly") return "CANDIDATE";
-  if(ctx.module==="opportunities") return "NOMINATION";
+  if(ctx.module==="opportunities") return ctx.data?.authority||"NOMINATION";
   return ctx.data?.authority||null;
 }
 function authoritySet(item){
@@ -161,7 +161,10 @@ function nextChecks(item){
 }
 function researchReasonHtml(item){
   const nominations=item.contexts.filter(x=>x.module==="opportunities");
-  if(!nominations.length) return '<div class="empty-state">当前没有 P3 Gate 记录。</div>';
+  if(!nominations.length) return '<div class="empty-state">本批没有新机会记录。</div>';
+  if(nominations.some(ctx=>ctx.data.authority==="CONTINUITY")){
+    return '<div class="research-list">'+nominations.map(ctx=>'<div class="research-item"><strong>'+esc(ctx.data.current_state||"同案研究复核")+'</strong><div class="small muted">'+esc((ctx.data.blockers||[]).join("；")||"原依据与经济时钟继续保留")+'</div></div>').join("")+'</div>';
+  }
   return '<div class="research-list">'+nominations.map(ctx=>{
     const d=ctx.data;
     const stateClass=d.evidence_state==="confirmed"?"good":"muted";
@@ -280,7 +283,10 @@ function validate(p){
   if(p.system_id!=="NEW_SYSTEM") errors.push("system_id 不是 NEW_SYSTEM");
   if(p.data_boundary!=="isolated") errors.push("data_boundary 不是 isolated");
   if(p.external_evidence_sharing!==false) errors.push("external_evidence_sharing 必须为 false");
-  if(p.permissions?.trade_permission!==false) errors.push("trade_permission 必须为 false");
+  for(const key of ["trade_permission","execution_permission","broker_connection","paper_action_enabled"]){
+    if(p.permissions?.[key]!==false) errors.push(key+" 必须为 false");
+  }
+  if(p.not_an_order!==true) errors.push("只读研究标记缺失");
   const keys=Object.keys(p.modules||{}).sort();
   const expected=[...EXPECTED_MODULES].sort();
   if(JSON.stringify(keys)!==JSON.stringify(expected)) errors.push("modules 不符合 NEW-only 合同");
@@ -296,14 +302,23 @@ function overview(p){
   const cont=items.filter(x=>x.authority==="CONTINUITY");
   return '<div class="grid">'+
     card("正式基线",'<div class="row between">'+kv(f.as_of||"FORMAL",f.formal_cards?.length||0)+badge("FORMAL")+'</div><div class="divider"></div><div class="small muted">正式卡片：</div><div class="pill-list">'+(f.formal_cards||[]).map(x=>'<span class="pill">'+securityLink(x)+'</span>').join("")+'</div>',4)+
-    card("最新候选",'<div class="row between">'+kv(c.as_of||"CANDIDATE",c.case_denominator||0)+badge("CANDIDATE")+'</div><div class="divider"></div><div class="pill-list"><span class="pill">UPGRADE '+esc(c.continuity?.upgrade||0)+'</span><span class="pill">DOWNGRADE '+esc(c.continuity?.downgrade||0)+'</span><span class="pill">NO_CHANGE '+esc(c.continuity?.no_change||0)+'</span></div>',4)+
-    card("新机会漏斗",'<div class="row between">'+kv("NOMINATION",o.nomination_count||0)+badge("NOMINATION")+'</div><div class="divider"></div><div class="small muted">Fast Lane accepted：'+esc(o.fast_lane_acceptance?.accepted_n??0)+'</div>',4)+
+    card(p.modules.candidate_weekly.status==="verified"?"最新候选":"候选（本批未供应）",'<div class="row between">'+kv(c.as_of||"本批未供应",c.case_denominator??"未供应")+badge("CANDIDATE")+'</div><div class="divider"></div><div class="pill-list"><span class="pill">UPGRADE '+esc(c.continuity?.upgrade??"未供应")+'</span><span class="pill">DOWNGRADE '+esc(c.continuity?.downgrade??"未供应")+'</span><span class="pill">NO_CHANGE '+esc(c.continuity?.no_change??"未供应")+'</span></div>',4)+
+    card("当前条件与新机会",'<div class="row between">'+kv(o.case_denominator_n!==undefined?"本批复核":p.modules.opportunities.status==="verified"?"研究提名":"本批未供应",o.reviewed_case_n??o.nomination_count??"未供应")+badge(o.authority||"NOMINATION")+'</div><div class="divider"></div><div class="small muted">Fast Lane accepted：'+esc(o.fast_lane_acceptance?.accepted_n??"未供应")+'</div>',4)+
     card("连续性对象",'<div class="pill-list">'+cont.map(x=>'<span class="pill">'+securityLink(x,x.stock_name+" "+(x.security_id||"").split(":").pop())+'</span>').join("")+'</div>',6)+
-    card("系统边界",'<div class="row"><span class="badge SYSTEM">ISOLATED</span><span class="good">不共享外部证据</span></div><div class="divider"></div><div class="small muted">数据仅来自 dashboard-data；外部云端监控模块禁止进入。</div>',6)+
+    card("系统边界",'<div class="row"><span class="badge SYSTEM">ISOLATED</span><span class="good">不共享外部证据</span></div><div class="divider"></div><div class="small muted">来源为同一正式周报与已验证日常输出；外部监控模块独立。</div>',6)+
   '</div>';
 }
 function weekly(p){
   const f=moduleData(p,"formal_weekly"), c=moduleData(p,"candidate_weekly");
+  if(f.case_denominator!==undefined){
+    const names={observe:"观察",wait_evidence:"等待证据",wait_market:"等待行情"};
+    const counts=Object.entries(f.status_counts||{}).map(([k,v])=>'<span class="pill">'+esc(names[k]||k)+' '+esc(v)+'</span>').join("");
+    return '<div class="grid">'+
+      card("当前正式周报",kv("周次",f.as_of)+kv("Case 分母",f.case_denominator)+kv("正式研究卡",f.card_n)+'<div class="divider"></div><div class="pill-list">'+counts+'</div>',12)+
+      card("正式卡片",'<div class="pill-list">'+(f.formal_cards||[]).map(x=>'<span class="pill">'+securityLink(x,x.security_id.split(":").pop()+" "+x.stock_name)+'</span>').join("")+'</div>',6)+
+      card("候选记录",esc(c.as_of||"未供应")+'<div class="small muted">'+esc(p.modules.candidate_weekly.status==="verified"?"独立候选，等待实际采用":"本批没有新候选供应，保留其原来源时间；不当作本周更新。")+'</div>',6)+
+    '</div>';
+  }
   const changed=c.known_changed_securities||[];
   const signals=c.evidence_signal_counts||{};
   const outcomes=c.deep_research_outcome_counts||{};
@@ -325,6 +340,18 @@ function watchlist(p){
 }
 function opportunities(p){
   const o=moduleData(p,"opportunities"), fl=o.fast_lane_acceptance||{};
+  if(o.case_denominator_n!==undefined){
+    const rows=(o.items||[]).map(x=>'<tr><td>'+securityLink(x,x.security_id.split(":").pop()+" "+x.stock_name)+'</td><td>'+badge(x.authority)+'</td><td>'+esc(x.current_state)+'</td><td>'+esc((x.blockers||[]).join("；")||"见同案来源")+'</td></tr>').join("");
+    return '<div class="grid">'+
+      card("本批条件复核",kv("复核",o.reviewed_case_n)+kv("完整保留",o.case_denominator_n)+'<div class="small muted">其余 '+esc(o.not_reviewed_case_n)+' 案未在本批重新复核；不是无机会。</div>',6)+
+      card("价格条件",kv("当前价格有效",o.price_current_n)+kv("条件复核",o.conditional_review_n)+'<div class="small muted">只作研究与人工复核，四权限保持关闭。</div>',6)+
+      card("同案连续跟踪",'<div class="table-scroll"><table><thead><tr><th>标的</th><th>身份</th><th>当前状态</th><th>阻断与下一步</th></tr></thead><tbody>'+rows+'</tbody></table></div>',12)+
+      card("当轮新机会复核",o.fast_status==="evaluated"?kv("提名",o.fast_nomination_n)+kv("完成案例复核",o.fast_compiled_case_n):'<div class="small muted">本轮快线输入未供应或受阻，不代表没有机会。</div>',12)+
+      card("新机会对象",'<div class="pill-list">'+(o.fast_rows||[]).map(x=>'<span class="pill">'+securityLink(x,x.security_id.split(":").pop()+" "+x.stock_name)+' '+badge(x.authority)+' '+esc(x.expires_at&&Date.parse(x.expires_at)<=Date.now()?"已过期，等待新触发":x.permitted_review_action||x.reason||"待核验")+'</span>').join("")+'</div>',12)+
+
+      card("来源时间",esc(fmtTime(p.modules.opportunities.source_cutoff||o.as_of))+'<div class="small muted">正式周报及其原始时钟独立保留。</div>',12)+
+    '</div>';
+  }
   const rows=o.nomination_records||[];
   const tableRows=rows.map((x,i)=>'<tr>'+
     '<td>'+(i+1)+'</td>'+
@@ -352,8 +379,11 @@ function progress(p){
 }
 function health(p){
   const h=moduleData(p,"system_health");
+  const freshness=Object.entries(p.modules).map(([name,m])=>'<tr><td>'+esc(MODULE_LABELS[name]||name)+'</td><td>'+esc(({verified:"本批已验证",partial:"本批覆盖不全",unavailable:"本批未供应",stale:"来源过期"})[m.status]||m.status)+'</td><td>'+esc(fmtTime(m.previous_snapshot_source_cutoff||m.source_cutoff||p.source_cutoff))+'</td><td>'+esc(m.data_from_previous_snapshot?"保留原数据":"本批来源")+'</td></tr>').join("");
   return '<div class="grid">'+
+    card("模块来源与供给",'<table><thead><tr><th>模块</th><th>供给状态</th><th>原来源时间</th><th>说明</th></tr></thead><tbody>'+freshness+'</tbody></table>',12)+
     card("边界校验",'<div class="row"><span class="badge SYSTEM">'+esc(h.data_boundary||p.data_boundary)+'</span><span class="good">external_evidence_sharing = false</span></div><div class="divider"></div><div class="small muted">外部监控源 attached：'+esc(h.external_monitor_sources_attached)+'</div>',6)+
+    card("自然运行观察",esc(h.natural_p7_status==="not_verified"?"尚未完成自然交付验收":h.natural_p7_status||"未供应")+'<div class="small muted">正式采用、页面更新与自然交付分别验收。</div>',6)+
     card("保护状态",'<div class="pill-list"><span class="pill">formal unchanged '+esc(h.formal_current_unchanged)+'</span><span class="pill">trade_permission false</span></div>',6)+
     card("禁止模块",'<div class="pill-list">'+(h.forbidden_external_modules||[]).map(x=>'<span class="pill">'+esc(x)+'</span>').join("")+'</div>',12)+
   '</div>';
@@ -383,7 +413,7 @@ async function boot(){
     CURRENT_PAYLOAD=p;
     SECURITY_INDEX=buildSecurityIndex(p);
     setupSecuritySearch();
-    $("#snapshotMeta").textContent="快照 "+fmtTime(p.generated_at)+" · "+(p.overall_status||"—")+" · "+SECURITY_INDEX.size+" 家标的";
+    $("#snapshotMeta").textContent="来源 "+fmtTime(p.source_cutoff)+" · 展示生成 "+fmtTime(p.generated_at)+" · "+(p.overall_status==="healthy"?"完整":"部分模块未供应，保留原数据")+" · "+SECURITY_INDEX.size+" 家标的";
     $("#snapshotHash").textContent="snapshot "+String(p.snapshot_sha256||"").slice(0,12);
     renderNav(p);$("#app").innerHTML=overview(p);
   }catch(e){fail(["无法读取 dashboard/current.json："+e.message])}
