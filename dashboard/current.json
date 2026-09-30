@@ -1,244 +1,770 @@
 {
-  "data_boundary": "isolated",
-  "degraded_modules": [
-    "candidate_weekly",
-    "opportunities"
-  ],
-  "external_evidence_sharing": false,
-  "generated_at": "2026-09-30T23:03:43.448277+08:00",
-  "history_ref": {
-    "file_sha256": "0f5fd1f2acef8182361ef0148e4de645c62aae3f38892a9d9eb5e39dcbe2982f",
-    "path": "history/2026-09-22.json",
-    "snapshot_sha256": "2dc1710c152a396a78152ea810b2b8607045950c3644c13668e772a1171d466e",
-    "source_commit": "6c37aa1bc12a070173500e7b7effe82025ba8ab7",
-    "source_cutoff": "2026-09-22T15:40:00+08:00"
+  "authority_legend": {
+    "CANDIDATE": "已验证但待采用",
+    "CONTINUITY": "历史已验证判断继续有效",
+    "FORMAL": "正式权威",
+    "NOMINATION": "研究线索，不等于正式候选",
+    "SYSTEM": "系统审计层"
   },
+  "data_boundary": "isolated",
+  "degraded_modules": [],
+  "external_evidence_sharing": false,
+  "generated_at": "2026-09-22T15:40:00+08:00",
+  "last_successful_snapshot": "2026-09-22T14:35:00+08:00",
   "modules": {
     "candidate_weekly": {
       "data": {
-        "authority": "CANDIDATE"
+        "action_row_count": 1380,
+        "adoption_pending": true,
+        "artifact_id": "10673652770",
+        "as_of": "2026-W39",
+        "authority": "CANDIDATE",
+        "case_denominator": 1380,
+        "continuity": {
+          "downgrade": 1,
+          "invalidated": 0,
+          "no_change": 1377,
+          "upgrade": 2
+        },
+        "current_conclusion_authority": false,
+        "deep_research_outcome_counts": {
+          "wait_disclosure": 7,
+          "watch": 21
+        },
+        "deep_research_queue_n": 28,
+        "evidence_maturity_counts": {
+          "realized": 26,
+          "recall_only": 1354
+        },
+        "evidence_signal_counts": {
+          "E2_first_party_operations_demand": 4,
+          "E3_industry_cross_validation": 7,
+          "E4_market_expectation": 4
+        },
+        "formal_current_written": false,
+        "github_run_id": "35677224787",
+        "known_changed_securities": [
+          {
+            "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
+            "security_id": "SZSE:001389",
+            "stock_name": "广合科技",
+            "weekly_change": "DOWNGRADE"
+          }
+        ],
+        "not_an_order": true,
+        "report_attack_incremental_coverage": {
+          "captured_n": 10,
+          "coverage_complete": true
+        },
+        "upgrade_detail_materialized": false,
+        "upgrade_detail_note": "2个UPGRADE已在连续性统计中确认；具体对象需从正式candidate artifact继续结构化抽取，未结构化前不得猜测。"
       },
       "data_from_previous_snapshot": false,
-      "source_refs": [],
-      "status": "unavailable"
+      "source_refs": [
+        "github-run:35677224787",
+        "artifact:10673652770"
+      ],
+      "status": "verified"
     },
     "formal_weekly": {
       "data": {
-        "as_of": "2026-W40",
+        "as_of": "2026-W37",
         "authority": "FORMAL",
-        "card_n": 5,
-        "case_denominator": 1380,
-        "display_card_comparison": {
-          "from_week": "2026-W40（原公开三卡）",
-          "meaning": "仅比较已发布研究卡面。广合科技、中一科技进入正式研究阅读席，原价格限制及复核期限保留，不构成买入或资金授权。",
-          "newly_displayed": [
-            {
-              "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
-              "security_id": "SZSE:001389",
-              "stock_name": "广合科技"
-            },
-            {
-              "case_key": "company:SZSE:301150|economic_output|electronic_copper_foil",
-              "security_id": "SZSE:301150",
-              "stock_name": "中一科技"
-            }
-          ],
-          "not_on_current_card": [],
-          "retained": [
-            {
-              "case_key": "company:SZSE:300502|economic_output|optical_transceiver_interconnect",
-              "security_id": "SZSE:300502",
-              "stock_name": "新易盛"
-            },
-            {
-              "case_key": "company:SZSE:300308|economic_output|optical_transceiver_interconnect",
-              "security_id": "SZSE:300308",
-              "stock_name": "中际旭创"
-            },
-            {
-              "case_key": "company:SZSE:301511|economic_output|electronic_copper_foil",
-              "security_id": "SZSE:301511",
-              "stock_name": "德福科技"
-            }
-          ],
-          "to_week": "2026-W40（已发布五卡）"
-        },
+        "current_conclusion_authority": true,
         "formal_cards": [
           {
-            "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
             "security_id": "SZSE:001389",
             "stock_name": "广合科技"
           },
           {
-            "case_key": "company:SZSE:300502|economic_output|optical_transceiver_interconnect",
             "security_id": "SZSE:300502",
             "stock_name": "新易盛"
           },
           {
-            "case_key": "company:SZSE:300308|economic_output|optical_transceiver_interconnect",
             "security_id": "SZSE:300308",
             "stock_name": "中际旭创"
           },
           {
-            "case_key": "company:SZSE:301150|economic_output|electronic_copper_foil",
             "security_id": "SZSE:301150",
             "stock_name": "中一科技"
-          },
-          {
-            "case_key": "company:SZSE:301511|economic_output|electronic_copper_foil",
-            "security_id": "SZSE:301511",
-            "stock_name": "德福科技"
           }
         ],
         "formal_current_written": true,
-        "history_limit": "保留原9/22的W37正式与W39候选历史；本次比较原W40三卡页与已发布W40五卡页，不补造研究或退出事件。",
         "not_an_order": true,
-        "release_sha": "92f4b8a0ab7694d411f2f430a7e97a40b0671bba",
-        "report_markdown_sha256": "394eb43bc979730adee0c90614d4e084debd9db81e822686cf746106d259e97e",
-        "research_scope": "已发布W40周报的公开研究摘录；5张研究卡不代表新增买入许可。行情与价值证据缺口保留；个人账户、资金、持仓及模拟决策金额不公开。",
-        "research_sections": [
-          {
-            "markdown": "- 进卡：广合科技（001389）、中一科技（301150）；出卡：无。\n- 经营强化=0；经营弱化=0；经营冲突=0；失效=0；总变化对象=2。逐案变化已写入下方完整排名。",
-            "title": "本周变化"
-          },
-          {
-            "markdown": "交易审查 0；重点研究 5；等待行情 4；等待补证 7；等待披露 0；观察 36；失效 0。\n\n| 本周位置 | 对象 | 本周动作 |\n| --- | --- | --- |\n| 交易审查 0 | 无 | 人工核对触发、失效和风险预算 |\n| 等待行情 4 | 中际旭创（300308）·光模块、广合科技（001389）·高速PCB、德福科技（301511）·电子铜箔、中一科技（301150）·电子铜箔 | 刷新E4、价格和技术位置 |\n| 等待补证 7 | 平安电工（001359）·电子布、平安电工（001359）·尚未登记的业务、北方华创（002371）·半导体设备、明阳电路（300739）·高速PCB、逸豪新材（301176）·电子铜箔、联特科技（301205）·光模块等7个对象 | 执行关系、报告、重要性或独立需求补证 |\n| 等待披露 0 | 无 | 等待正式报告或公告发布 |\n| 观察 36 | 新易盛（300502）·光模块、蘅东光（920045）·光模块、蘅东光（920045）·尚未登记的业务、诺德股份（600110）·电子铜箔、方正科技（600601）·高速PCB、方正科技（600601）·光模块等36个对象 | 不投入本周主动预算，只接收增量证据 |\n| 失效 0 | 无 | 停止正向研究，保留失效记录 |\n\n- 本周优先阅读：广合科技（001389）·高速PCB、新易盛（300502）·光模块、中际旭创（300308）·光模块、中一科技（301150）·电子铜箔、德福科技（301511）·电子铜箔。\n- 系统运行、完整分母和全量SourceProof后置到质询区；只有直接限制本周结论的问题才在第一屏显示。",
-            "title": "本周做什么"
-          },
-          {
-            "markdown": "### 001389 广合科技\n- 为什么现在：没有新变化；按既定复核时间维护\n- 公司捕获：高速PCB；业务重要性 高纯度业务；可比性 仅有本期事实\n- 当前判断：本轮窗口结束；历史事实保留；无有效冲突\n- 正式动作：等待行情；主阻断：当前价格高于技术复核带\n- 进攻建议：不追，等待回到复核带\n- 复核条件：技术复核带 166.7324–174.0856；当前 177.5900；中期趋势高于MA60；不是估值目标价\n- 历史估值压力区间：尚无有效输入，不据此判断估值高低\n- 失效条件：下一份可比正式财报如果不再确认高速PCB。2026-09-17 再看一次\n- 机会窗口截止：2026-09-17T15:05:22.196192+08:00\n- 证据复核日：2026-09-17T15:05:22.196192+08:00\n- 必需研究：当前价格条件：现有行情评价器在有效截止时点给出可复核条件\n- 增强研究：独立需求与持续性；同口径变化、加速或重复兑现；目标业务占比；目标产出利润方向；公司现金质量\n\n### 300502 新易盛\n- 为什么现在：没有新变化；按既定复核时间维护\n- 公司捕获：光模块；业务重要性 高纯度业务；可比性 同口径可比\n- 当前判断：本轮窗口结束；历史事实保留；无有效冲突\n- 正式动作：观察；主阻断：active_weakening_signal\n- 进攻建议：进入条件复核；中期趋势仍低于MA60\n- 复核条件：技术复核带 405.1905–422.4555；当前 399.7000；中期趋势低于MA60；不是估值目标价\n- 历史估值压力区间：尚无有效输入，不据此判断估值高低\n- 失效条件：下一份可比正式财报如果不再确认光模块。2026-09-17 再看一次\n- 机会窗口截止：2026-09-17T15:05:24.491733+08:00\n- 证据复核日：2026-09-17T15:05:24.491733+08:00\n- 必需研究：当前有限判断无额外必需补证\n- 增强研究：独立需求与持续性；目标业务占比；目标产出利润方向；公司现金质量\n\n### 300308 中际旭创\n- 为什么现在：没有新变化；按既定复核时间维护\n- 公司捕获：光模块；业务重要性 高纯度业务；可比性 仅有本期事实\n- 当前判断：本轮窗口结束；历史事实保留；无有效冲突\n- 正式动作：等待行情；主阻断：技术结构偏弱，等待修复\n- 进攻建议：等待趋势修复\n- 复核条件：技术复核带 857.5218–895.4204；当前 815.0000；中期趋势低于MA60；不是估值目标价\n- 历史估值压力区间：尚无有效输入，不据此判断估值高低\n- 失效条件：下一份可比正式财报如果不再确认光模块。2026-09-17 再看一次\n- 机会窗口截止：2026-09-17T15:05:37.603993+08:00\n- 证据复核日：2026-09-17T15:05:37.603993+08:00\n- 必需研究：当前价格条件：现有行情评价器在有效截止时点给出可复核条件\n- 增强研究：独立需求与持续性；同口径变化、加速或重复兑现；目标业务占比；目标产出利润方向；公司现金质量\n\n### 301150 中一科技\n- 为什么现在：没有新变化；按既定复核时间维护\n- 公司捕获：电子铜箔；业务重要性 重要业务；可比性 同口径可比\n- 当前判断：本轮窗口结束；历史事实保留；无有效冲突\n- 正式动作：等待行情；主阻断：当前价格高于技术复核带\n- 进攻建议：不追，等待回到复核带\n- 复核条件：技术复核带 38.2939–40.8493；当前 41.7100；中期趋势高于MA60；不是估值目标价\n- 历史估值压力区间：尚无有效输入，不据此判断估值高低\n- 失效条件：下一份可比正式财报如果不再确认电子铜箔。2026-09-18 再看一次\n- 机会窗口截止：2026-09-18T07:32:07.409074+08:00\n- 证据复核日：2026-09-18T07:32:07.409074+08:00\n- 必需研究：当前价格条件：现有行情评价器在有效截止时点给出可复核条件\n- 增强研究：独立需求与持续性；目标业务占比；目标产出利润方向；公司现金质量\n\n### 301511 德福科技\n- 为什么现在：没有新变化；按既定复核时间维护\n- 公司捕获：电子铜箔；业务重要性 重要业务；可比性 同口径可比\n- 当前判断：本轮窗口结束；历史事实保留；无有效冲突\n- 正式动作：等待行情；主阻断：技术结构偏弱，等待修复\n- 进攻建议：等待趋势修复\n- 复核条件：技术复核带 99.6598–104.6955；当前 93.8000；中期趋势低于MA60；不是估值目标价\n- 历史估值压力区间：尚无有效输入，不据此判断估值高低\n- 失效条件：下一份可比正式财报如果不再确认电子铜箔。2026-09-18 再看一次\n- 机会窗口截止：2026-09-18T07:32:08.224986+08:00\n- 证据复核日：2026-09-18T07:32:08.224986+08:00\n- 必需研究：当前价格条件：现有行情评价器在有效截止时点给出可复核条件\n- 增强研究：独立需求与持续性；目标业务占比；目标产出利润方向；公司现金质量",
-            "title": "条件研究：机会窗口"
-          },
-          {
-            "markdown": "先看官方有没有确认它做这件事、这件事占公司多重、证据有没有打架、当前价格与技术条件是否有效。技术延伸不代表估值偏贵；冲突证据会降级当前判断，但不会删掉已经确认的事实。\n\n### 1. 广合科技（001389）· 高速PCB\n\n官方已经确认它做高速PCB，公司PCB业务占比 93.13%，已有高速PCB关系依据，高速PCB收入占比未单独披露，主事实还在，另有非关键缺口，已有本期事实，历史同口径基线仍缺，行情已过期，不作当前价格判断，未评估个性化风险容量。\n\n- 报告时点：最新官方报告 2026H1；最新激活Fact 2026H1；可比基线 仅本期。\n- 最新激活经营事实（2026H1）：印制电路板营业收入 40.87亿元；印制电路板收入占比 93.13%；印制电路板收入同比 +80.42%；印制电路板毛利率 35.36%。\n- 可比判断：缺少可比历史基线，不能据此写加速。\n- 当前限制：缺可比历史基线。\n- 证据入口：p.12,13 / SourceProof 12d9a33fdcc8\n- 这周怎么用：等待最新行情，只保留研究卡，不作当前价格判断\n- 行情已过期，先刷新价格与技术位置\n- 什么时候作废：下一份可比正式财报如果不再确认高速PCB。2026-10-13 再看一次\n\n### 2. 新易盛（300502）· 光模块\n\n官方已经确认它做光模块，公司光模块业务占比 99.87%，已有光模块关系依据，其中高速/算力光模块收入占比未单独披露，证据有冲突，先降权但不删除已确认事实，与可比历史口径相比，本期兑现增强，截止日市场条件未触及现有规则限制，不代表估值便宜，未评估个性化风险容量。\n\n- 报告时点：最新官方报告 2026H1；最新激活Fact 2026H1；可比基线 可比。\n- 最新激活经营事实（2026H1）：光互联产品营业收入 208.83亿元；光互联产品收入占比 99.87%；光互联产品收入同比 +100.59%；光互联产品毛利率 48.46%。\n- 当前限制：保留6条活跃弱化风险，按失效条件复核。\n- 证据入口：p.13,14 / SourceProof bc164fb20269\n- 这周怎么用：只观察，不进入交易审查\n- 什么时候作废：下一份可比正式财报如果不再确认光模块。2026-10-13 再看一次\n\n### 3. 中际旭创（300308）· 光模块\n\n官方已经确认它做光模块，公司光模块业务占比 98.99%，已有光模块关系依据，其中高速/算力光模块收入占比未单独披露，主事实还在，另有非关键缺口，已有本期事实，历史同口径基线仍缺，行情已过期，不作当前价格判断，未评估个性化风险容量。\n\n- 报告时点：最新官方报告 2026H1；最新激活Fact 2026H1；可比基线 仅本期。\n- 最新激活经营事实（2026H1）：光通信收发模块营业收入 413.55亿元；光通信收发模块收入占比 98.99%；光通信收发模块收入同比 +186.56%；光通信收发模块毛利率 46.59%。\n- 可比判断：缺少可比历史基线，不能据此写加速。\n- 当前限制：缺可比历史基线。\n- 证据入口：p.25,26 / SourceProof e0ecd7c365c6\n- 这周怎么用：等待最新行情，只保留研究卡，不作当前价格判断\n- 行情已过期，先刷新价格与技术位置\n- 什么时候作废：下一份可比正式财报如果不再确认光模块。2026-10-13 再看一次\n\n### 4. 中一科技（301150）· 电子铜箔\n\n官方已经确认它做电子铜箔，公司电子电路铜箔业务占比 24.6%，已有电子铜箔关系依据，HVLP/RTF等算力相关铜箔占比未披露，主事实还在，另有非关键缺口，行情已过期，不作当前价格判断，未评估个性化风险容量。\n\n- 报告时点：最新官方报告 2026H1；最新激活Fact 2026H1；可比基线 可比。\n- 最新激活经营事实（2026H1）：电子电路铜箔营业收入 9.69亿元；电子电路铜箔收入占公司营业收入比重 24.6%；电子电路铜箔营业收入同比增减 +75.13%；电子电路铜箔毛利率 8.3%。\n- 当前限制：最新毛利率8.3%偏低。\n- 证据入口：p.17,18 / SourceProof dc64e18a54c8\n- 这周怎么用：等待最新行情，只保留研究卡，不作当前价格判断\n- 行情已过期，先刷新价格与技术位置\n- 什么时候作废：下一份可比正式财报如果不再确认电子铜箔。2026-10-13 再看一次\n\n### 5. 德福科技（301511）· 电子铜箔\n\n官方已经确认它做电子铜箔，公司电子电路铜箔业务占比 14.22%，已有电子铜箔关系依据，HVLP/RTF等算力相关铜箔占比未披露，主事实还在，另有非关键缺口，行情已过期，不作当前价格判断，未评估个性化风险容量。\n\n- 报告时点：最新官方报告 2026H1；最新激活Fact 2026H1；可比基线 可比。\n- 最新激活经营事实（2026H1）：电子电路铜箔营业收入 13.08亿元；电子电路铜箔收入占公司营业收入比重 14.22%；电子电路铜箔营业收入同比增减 +66.68%；电子电路铜箔毛利率 4.85%。\n- 当前限制：最新毛利率4.85%偏低。\n- 证据入口：p.15 / SourceProof e7b994f10f0b\n- 这周怎么用：等待最新行情，只保留研究卡，不作当前价格判断\n- 行情已过期，先刷新价格与技术位置\n- 什么时候作废：下一份可比正式财报如果不再确认电子铜箔。2026-10-13 再看一次",
-            "title": "本周先读"
-          },
-          {
-            "markdown": "- 当前补证任务：生成 12；其中当前判断必需 12、增强确信 0、背景完善 0；实际尝试 0；语义闭环 0；仍待处理 8；延期或失败 4；被更新证据替代 0。\n- 历史累计终点 0；当前存在 0 个运输或通用终点尚未形成任务语义闭环。\n- 近成熟案件守恒：共 20；已有任务 10；窗口到期停车 10；未路由 0。\n- 平安电工（001359）·尚未登记的业务：最新报告尚未激活；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 平安电工（001359）·电子布：公司—目标业务关系待确认；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 平安电工（001359）·电子布：最新报告尚未激活；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 北方华创（002371）·半导体设备：公司—目标业务关系待确认；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 明阳电路（300739）·高速PCB：公司—目标业务关系待确认；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 逸豪新材（301176）·电子铜箔：公司—目标业务关系待确认；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 联特科技（301205）·光模块：最新报告尚未激活；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 同宇新材（301630）·电子树脂：公司—目标业务关系待确认；待执行；来源=重处理已有正式材料；等待自=2026-09-29；复核=2026-10-13。\n- 广合科技（001389）·高速PCB：当前价格高于技术复核带；延期到下一窗口；来源=刷新行情与技术条件；等待自=2026-09-29；复核=2026-10-13。\n- 中际旭创（300308）·光模块：技术结构偏弱，等待修复；延期到下一窗口；来源=刷新行情与技术条件；等待自=2026-09-29；复核=2026-10-13。\n- 中一科技（301150）·电子铜箔：当前价格高于技术复核带；延期到下一窗口；来源=刷新行情与技术条件；等待自=2026-09-29；复核=2026-10-13。\n- 德福科技（301511）·电子铜箔：技术结构偏弱，等待修复；延期到下一窗口；来源=刷新行情与技术条件；等待自=2026-09-29；复核=2026-10-13。",
-            "title": "本周补证任务"
-          },
-          {
-            "markdown": "候选 1564 个：其中已有稳定案件 1331，来源支撑但尚未落案 233，Candidate-only 1209；另有排除历史 49 个只保留连续性，不占当前研究池。\n- 分层：候选待判 1209；本周进卡 5；证据待补 8；经营已兑现 5；公司关系待证 102；风险阻断 2；来源支撑候选 233。\n- 候选池不是Fact池，也不是卡片池；证据质量只决定候选所处层级和策略上限，不删除对象。\n\n| 公司 | 候选产出 | 当前层级 | 第一缺口 / 下一动作 |\n|---|---|---|---|\n| 千岸科技（920065） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| 杰理科技（920138） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| BSE:920139（920139） | market_volume_expansion_ticket_only | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| BSE:920227（920227） | market_volume_expansion_ticket_only | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| 戈碧迦（920438） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| 富士达（920640） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| 视声智能（920976） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| 有研新材（600206） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| 华微电子（600360） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n| ST通葡（600365） | market_behavior | 来源支撑候选 | stable_case_mapping_required；进入定向E1或映射验证 |\n\n- 这里先列最需推进的 10 个；完整 1564 个候选、来源、第一缺口、下一动作和层级保留在同名 JSON 的 `candidate_pool.rows`。",
-            "title": "统一候选池"
-          },
-          {
-            "markdown": "领先信号 0；已兑现 24；核心进攻 0；仅保留/待补证 1356；冲突 0；弱化风险 1。",
-            "title": "证据成熟度"
-          },
-          {
-            "markdown": "兑现审阅排名按：进攻成熟度→关系真实性→业务重要性→可比经营兑现→证据完整/冲突→独立需求→价格→技术→组合。它用于完整研究比较；0–5张卡仍另叠资格、风险和注意力席位。\n\n| 排名 | ticker 公司 | 业务及占比 | 经营状态 | 当前结论 | 第一限制 |\n|---:|---|---|---|---|---|\n| 1 | 新易盛（300502） | 光模块；通用业务高纯度 99.87%；算力特定未知 | 跨期重复兑现；可比/增强 | 本周阅读卡；有界研究，等待升级条件，不是交易指令 | 已进卡 |\n| 2 | 中际旭创（300308） | 光模块；通用业务高纯度 98.99%；算力特定未知 | 最新经营事实已兑现；仅本期事实/不可计算 | 本周阅读卡；有界研究，等待升级条件，不是交易指令 | 已进卡 |\n| 3 | 广合科技（001389） | 高速PCB；通用业务高纯度 93.13%；算力特定未知 | 最新经营事实已兑现；仅本期事实/不可计算 | 本周阅读卡；先记下，这周不进攻 | 已进卡 |\n| 4 | 德福科技（301511） | 电子铜箔；通用业务有意义 14.22%；算力特定未知 | 最新经营事实已兑现；可比/不可计算 | 本周阅读卡；有界研究，等待升级条件，不是交易指令 | 已进卡 |\n| 5 | 中一科技（301150） | 电子铜箔；通用业务有意义 24.6%；算力特定未知 | 最新经营事实已兑现；可比/不可计算 | 本周阅读卡；先记下，这周不进攻 | 已进卡 |\n| 6 | 北方华创（002371） | 半导体设备；通用业务高纯度 95.25%；算力特定未知 | 跨期重复兑现；可比/增强 | 已兑现；可有界研究 | 缺仍有效的日期催化 |\n| 7 | 同宇新材（301630） | 电子树脂；通用业务高纯度 97.81%；算力特定未知 | 最新经营事实已兑现；口径不可比/不可计算 | 已兑现；可有界研究 | 缺仍有效的日期催化 |\n| 8 | 明阳电路（300739） | PCB（算力关系未确认）；通用业务高纯度 94.45%；算力特定未知 | 历史经营事实已兑现；缺基线/不可计算；历史Fact=2025H1；最新报告2026H1未激活：相关指标无法机械确认 | 证据资格已到；价格或风险阻断 | 市场或技术状态延伸 |\n| 9 | 逸豪新材（301176） | 电子铜箔；通用业务核心驱动 77.56%；算力特定未知 | 最新经营事实已兑现；口径不可比/不可计算 | 证据资格已到；价格或风险阻断 | 市场或技术状态延伸 |\n| 10 | 联特科技（301205） | 光模块；通用业务高纯度 92.72%；算力特定未知 | 历史经营事实已兑现；仅该期事实/不可计算；历史Fact=2025H1；最新报告2026H1未激活：相关指标无法机械确认 | 已兑现；观察 | 当前仅观察，升级条件未齐 |\n| 11 | 平安电工（001359） | 电子布；通用业务有意义 11.67%；算力特定未知 | 历史经营事实已兑现；缺基线/不可计算；历史Fact=2025FY；最新报告2026H1未激活：合并口径无法归属到目标业务 | 已兑现；观察 | 公司—算力产出关系未确认 |\n| 12 | 广电计量（002967） | 集成电路测试与分析；通用业务小业务 8.52%；算力特定未知 | 最新经营事实已兑现；口径不可比/不可计算 | 已兑现；观察 | 公司—算力产出关系未确认 |\n| 13 | 浪潮信息（000977） | 尚未登记的业务；通用业务高纯度 92.51% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 14 | 宝鼎科技（002552） | 尚未登记的业务；通用业务核心驱动 65.81% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 15 | 金信诺（300252） | 尚未登记的业务；通用业务核心驱动 56.45% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 16 | 金信诺（300252） | 尚未登记的业务；通用业务核心驱动 37.65% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 17 | 广信材料（300537） | 尚未登记的业务；通用业务核心驱动 62.73% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 18 | 铜冠铜箔（301217） | 尚未登记的业务；通用业务核心驱动 39.19% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 19 | 光库科技（300620） | 尚未登记的业务；通用业务核心驱动 33.78% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 20 | 金信诺（300252） | 尚未登记的业务；通用业务核心驱动 34.91% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 21 | 平安电工（001359） | 尚未登记的业务；通用业务有意义 11.67% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 22 | 雪人集团（002639） | 尚未登记的业务；通用业务小业务 6.04% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 23 | *ST康佳A（000016） | 尚未登记的业务；通用业务小业务 3.25% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |\n| 24 | *ST康佳A（000016） | 尚未登记的业务；通用业务小业务 3.25% | 最新经营事实已兑现；仅本期事实/不可计算 | 已兑现；仅召回 | 公司—算力产出关系未确认 |",
-            "title": "已兑现对象完整排名（24/24）"
-          },
-          {
-            "markdown": "- AI加速芯片与模组：外部正式来源出现路径级事件，原文留在产业证据索引；当前稳定案件池无对应公司；第一断点=当前案件池没有可承接该事件的公司产出关系；产业研究优先级=定向发现；下一验证=独立付款方部署或目标公司E1经营兑现。该记录只保留路径和补证任务，不证明任何A股公司已经承接。\n- AI服务器：外部正式来源出现路径级事件，原文留在产业证据索引；已有对应公司案件但关系尚未闭合；第一断点=公司—产出关系尚未确认；产业研究优先级=定向关系补证；下一验证=目标公司关系及E1经营兑现。该记录只保留路径和补证任务，不证明任何A股公司已经承接。\n- AI服务器：外部正式来源出现路径级事件，原文留在产业证据索引；已有对应公司案件但关系尚未闭合；第一断点=公司—产出关系尚未确认；产业研究优先级=定向关系补证；下一验证=目标公司关系及E1经营兑现。该记录只保留路径和补证任务，不证明任何A股公司已经承接。\n- AI服务器：外部正式来源出现路径级事件，原文留在产业证据索引；当前稳定案件池无对应公司；第一断点=机械缺口详见同名 JSON；产业研究优先级=定向发现；下一验证=目标公司关系及E1经营兑现。该记录只保留路径和补证任务，不证明任何A股公司已经承接。\n- 数据中心设施设备：外部正式来源出现路径级事件，原文留在产业证据索引；当前稳定案件池无对应公司；第一断点=当前案件池没有可承接该事件的公司产出关系；产业研究优先级=定向发现；下一验证=路径特定供应商需求或目标公司E1经营兑现。该记录只保留路径和补证任务，不证明任何A股公司已经承接。\n- 其余未绑定路径事件和完整 SourceProof 保留在同名 JSON。",
-            "title": "未绑定路径事件"
-          },
-          {
-            "markdown": "这些对象已经接近阅读席，但仍被价格或风险边界挡住；其余对象可在已兑现排名和同名 JSON 查询。\n\n| 公司 | 业务 | 第一限制 | 下一复核 | 证据入口 |\n|---|---|---|---|---|\n| 明阳电路（300739） | PCB（算力关系未确认） | 市场或技术状态延伸 | 2026-10-13 | p.17 / SourceProof fb9498b47aa6 |\n| 逸豪新材（301176） | 电子铜箔 | 市场或技术状态延伸 | 2026-10-13 | p.16 / SourceProof 59c64da7df3f |",
-            "title": "重要近卡与风险落选（展示2/2）"
-          },
-          {
-            "markdown": "还有 1373 个对象没被淘汰，只是尚未达到本周阅读席资格。\n- 还没去读公告 1165 个；已有经营兑现 17 个；公告读了，业务还没对上 177 个；这份公告里没有相关业务节 14 个。\n- 主要还缺：还不知道这件事占公司多少 1341 个；公告读了，业务还没对上 13 个；催化已知但价格或风险条件未齐 9 个；这件事占公司太小 5 个；缺仍有效的日期催化 4 个。\n- 长期不变低优先零例按覆盖状态汇总；真正可能改变判断的对象在下方补证队列逐一列出。",
-            "title": "还在等证据"
-          },
-          {
-            "markdown": "- 行情分项：报价可用 5537/5549；估值可用 5537/5549；技术窗口可用 5473/5549。\n- 行情未解决请求=0；失败历史保留，缺口限制对应判断。\n- SZSE:300502 新易盛：报价日期=2026-09-28；不可用项=无。\n- SZSE:300308 中际旭创：报价日期=2026-09-28；不可用项=无。\n- SZSE:001389 广合科技：报价日期=2026-09-28；不可用项=无。\n- SZSE:301511 德福科技：报价日期=2026-09-28；不可用项=无。\n- SZSE:301150 中一科技：报价日期=2026-09-28；不可用项=无。\n- 决策截止=2026-09-29T13:51:37.558994+08:00；来源截止=2026-09-29T13:51:37.558994+08:00；增量报告截止=unavailable；行情会话=2026-09-28。\n- 全A身份分母=5,549；公告元数据=6670；连续案件=1380。\n- 官方报告取得/解析/语义覆盖=364/357/334；E1 Fact=459；E2 Signal=4；E3 Signal=7；E4 Signal=4；SourceProof对象=278。\n- 失败影响：有 2 份官方文件未取得，相关公司保留缺口且不能据此宣称无披露；已验证的研究判断继续；不可用价格/技术项未参与相应判断，未评估不解释为无机会。\n- 市场发现链=已运行；异动命中=243；研究Ticket=291。\n- 覆盖完整只表示登记分母已对账，不表示所有公司、报告字段、产业来源或市场预期都已研究完整。",
-            "title": "报告有效性与覆盖影响"
-          }
-        ],
-        "status_counts": {
-          "observe": 1369,
-          "wait_evidence": 7,
-          "wait_market": 4
-        },
-        "weekly_current_sha256": "aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a"
+        "release_sha": "30dfdea009e1bdbb1c971f868c41dab94f836955",
+        "weekly_current_sha256": "07d712fce7224e51d7ece78378ae9362e23ae19941ad939fe7660c91a3f1e43e"
       },
       "data_from_previous_snapshot": false,
-      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "weekly-current:sha256:aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a",
-        "formal-report:sha256:33cab2a7ee2558ea144fb92c32cf8b4bad48d64df8857ad9bf26d19df32a15d9"
+        "history-baseline/current.json",
+        "weekly-current.json"
       ],
       "status": "verified"
     },
     "opportunities": {
       "data": {
-        "authority": "NOMINATION"
+        "authority": "NOMINATION",
+        "bounded_probe_n": 0,
+        "company_capture_mechanism_n": 0,
+        "current_conclusion_authority": false,
+        "early_research_n": 0,
+        "economic_opportunity_n": 0,
+        "fast_lane_acceptance": {
+          "accepted_n": 0,
+          "authority": "NOMINATION",
+          "evaluated_n": 0,
+          "note": "P4 acceptance未形成可升级为CANDIDATE的对象"
+        },
+        "fast_offense_evaluated_n": 0,
+        "formal_card_eligible": false,
+        "formal_current_write_allowed": false,
+        "fresh_trigger_n": 0,
+        "main_blockers": [
+          "stale_nomination"
+        ],
+        "nomination_count": 48,
+        "nomination_record_count": 48,
+        "nomination_records": [
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G7_thermal_site",
+            "observed_at": "2026-08-08T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "BSE:920808",
+            "stock_name": "曙光数创"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G7_thermal_site",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:600160",
+            "stock_name": "巨化股份"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 3,
+            "evidence_label": "realized_offense",
+            "evidence_state": "confirmed",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:600183",
+            "stock_name": "生益科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G1_compute_accelerator",
+            "observed_at": "2026-08-08T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:601138",
+            "stock_name": "工业富联"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-08T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:601138",
+            "stock_name": "工业富联"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-11T17:22:03+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:603061",
+            "stock_name": "金海通"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:603256",
+            "stock_name": "宏和科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:603881",
+            "stock_name": "数据港"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G7_thermal_site",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:603881",
+            "stock_name": "数据港"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:605589",
+            "stock_name": "圣泉集团"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:605589",
+            "stock_name": "圣泉集团"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G1_compute_accelerator",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688041",
+            "stock_name": "海光信息"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-11T17:22:03+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688147",
+            "stock_name": "微导纳米"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-04-29T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688183",
+            "stock_name": "生益电子"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688388",
+            "stock_name": "嘉元科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688498",
+            "stock_name": "源杰科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688498",
+            "stock_name": "源杰科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688519",
+            "stock_name": "南亚新材"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-11T17:22:03+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688535",
+            "stock_name": "华海诚科"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G6_power_delivery",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688676",
+            "stock_name": "金盘科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688702",
+            "stock_name": "盛科通信"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-11T17:22:03+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688729",
+            "stock_name": "屹唐股份"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SSE:688981",
+            "stock_name": "中芯国际"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:000063",
+            "stock_name": "中兴通讯"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002130",
+            "stock_name": "沃尔核材"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002185",
+            "stock_name": "华天科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002335",
+            "stock_name": "科华数据"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G6_power_delivery",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002335",
+            "stock_name": "科华数据"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G6_power_delivery",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002364",
+            "stock_name": "中恒电气"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-11T08:10:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002463",
+            "stock_name": "沪电股份"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G7_thermal_site",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002536",
+            "stock_name": "飞龙股份"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002536",
+            "stock_name": "飞龙股份"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002916",
+            "stock_name": "深南电路"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G6_power_delivery",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:002922",
+            "stock_name": "伊戈尔"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-06-10T00:00:00Z",
+            "payer_supported": true,
+            "security_id": "SZSE:300308",
+            "stock_name": "中际旭创"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300383",
+            "stock_name": "光环新网"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G7_thermal_site",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300383",
+            "stock_name": "光环新网"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-04-21T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300394",
+            "stock_name": "天孚通信"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G5_board_package_manufacturing",
+            "observed_at": "2025-04-22T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300476",
+            "stock_name": "胜宏科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-08T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300502",
+            "stock_name": "新易盛"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-03-28T00:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300548",
+            "stock_name": "长芯博创"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-11T17:22:03+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300567",
+            "stock_name": "精测电子"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300604",
+            "stock_name": "长川科技"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G6_power_delivery",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300870",
+            "stock_name": "欧陆通"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:300913",
+            "stock_name": "兆龙互连"
+          },
+          {
+            "binding_order_verified": true,
+            "capture_quality_rank": 2,
+            "evidence_label": "inflection_offense",
+            "evidence_state": "confirmed",
+            "gate_id": "G7_thermal_site",
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:301018",
+            "stock_name": "申菱环境"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G4_data_movement",
+            "observed_at": "2026-08-08T15:13:10+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:301165",
+            "stock_name": "锐捷网络"
+          },
+          {
+            "binding_order_verified": false,
+            "capture_quality_rank": 1,
+            "evidence_label": "forward_probe",
+            "evidence_state": "pending_evidence",
+            "gate_id": "G8_specified_equipment_material",
+            "observed_at": "2026-08-10T14:05:30+08:00",
+            "payer_supported": true,
+            "security_id": "SZSE:301200",
+            "stock_name": "大族数控"
+          }
+        ],
+        "nomination_semantics": "48条研究提名记录；同一security_id可因命中不同gate重复出现，不等于48家不同公司",
+        "stable_case_bound_n": 0,
+        "ttl_days": 10,
+        "unique_company_count": 41
       },
       "data_from_previous_snapshot": false,
-      "source_refs": [],
-      "status": "unavailable"
+      "source_refs": [
+        "github-run:35678568640",
+        "artifact:10673114555",
+        "p3-nomination:a9c71605a50d50f14fbb4d744f5e6526890d37f839f103957cdb2210093706f7"
+      ],
+      "status": "verified"
     },
     "system_health": {
       "data": {
         "authority": "SYSTEM",
+        "data_boundary": "NEW_SYSTEM_ONLY",
+        "external_evidence_sharing": false,
+        "external_monitor_sources_attached": false,
+        "forbidden_external_modules": [
+          "industry",
+          "macro",
+          "robotics",
+          "portfolio"
+        ],
+        "formal_current_unchanged": true,
         "not_an_order": true,
-        "weekly_current_sha256": "aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a"
+        "p2b": "PASS",
+        "p2c": "PASS",
+        "p3": "PASS",
+        "p4": "PASS"
       },
       "data_from_previous_snapshot": false,
-      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "weekly-current:sha256:aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a",
-        "formal-report:sha256:33cab2a7ee2558ea144fb92c32cf8b4bad48d64df8857ad9bf26d19df32a15d9"
+        "p2b:35679218849",
+        "p2c:35677224787",
+        "p3:35678568640",
+        "p4:35679218859"
       ],
       "status": "verified"
     },
     "watchlist": {
       "data": {
-        "authority": "FORMAL",
+        "authority": "CONTINUITY",
         "items": [
           {
             "authority": "FORMAL",
-            "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
-            "current_role": "正式周报研究卡",
+            "continuity": "保留",
+            "current_role": "重点研究",
             "current_state": "等待行情",
-            "next_review": "2026-10-13",
-            "security_id": "SZSE:001389",
-            "stock_name": "广合科技"
-          },
-          {
-            "authority": "FORMAL",
-            "case_key": "company:SZSE:300502|economic_output|optical_transceiver_interconnect",
-            "current_role": "正式周报研究卡",
-            "current_state": "观察",
-            "next_review": "2026-10-13",
-            "security_id": "SZSE:300502",
-            "stock_name": "新易盛"
-          },
-          {
-            "authority": "FORMAL",
-            "case_key": "company:SZSE:300308|economic_output|optical_transceiver_interconnect",
-            "current_role": "正式周报研究卡",
-            "current_state": "等待行情",
-            "next_review": "2026-10-13",
+            "next_trigger": "进入技术复核区或出现新的正式业绩上修",
             "security_id": "SZSE:300308",
             "stock_name": "中际旭创"
           },
           {
             "authority": "FORMAL",
-            "case_key": "company:SZSE:301150|economic_output|electronic_copper_foil",
-            "current_role": "正式周报研究卡",
+            "continuity": "保留",
+            "current_role": "重点研究",
             "current_state": "等待行情",
-            "next_review": "2026-10-13",
+            "security_id": "SZSE:300502",
+            "stock_name": "新易盛"
+          },
+          {
+            "authority": "FORMAL",
+            "continuity": "保留",
+            "current_role": "重点研究",
             "security_id": "SZSE:301150",
             "stock_name": "中一科技"
           },
           {
-            "authority": "FORMAL",
-            "case_key": "company:SZSE:301511|economic_output|electronic_copper_foil",
-            "current_role": "正式周报研究卡",
-            "current_state": "等待行情",
-            "next_review": "2026-10-13",
-            "security_id": "SZSE:301511",
-            "stock_name": "德福科技"
+            "authority": "CONTINUITY",
+            "blockers": [
+              "compute_scope_unresolved",
+              "business_materiality_unknown",
+              "metric_unresolved"
+            ],
+            "current_role": "formal stable denominator历史重点",
+            "current_state": "观察",
+            "security_id": "SSE:600183",
+            "stable_case_count": 2,
+            "stock_name": "生益科技",
+            "thesis_invalidated": false,
+            "weekly_change": "NO_CHANGE"
+          },
+          {
+            "authority": "NOMINATION",
+            "blocker": "stale_nomination",
+            "continuity": "历史观察保留",
+            "current_role": "v2 nomination历史重点观察",
+            "current_state": "等待新触发",
+            "fresh_trigger": false,
+            "observed_at": "2026-08-01T09:00:00+08:00",
+            "security_id": "SZSE:301018",
+            "stock_name": "申菱环境",
+            "thesis_invalidated": false,
+            "ttl_days": 10
+          },
+          {
+            "authority": "CONTINUITY",
+            "current_role": "历史卡片",
+            "current_state": "退出当前卡片",
+            "security_id": "SZSE:001389",
+            "stock_name": "广合科技",
+            "weekly_change": "DOWNGRADE"
           }
         ]
       },
       "data_from_previous_snapshot": false,
-      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "weekly-current:sha256:aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a",
-        "formal-report:sha256:33cab2a7ee2558ea144fb92c32cf8b4bad48d64df8857ad9bf26d19df32a15d9"
+        "p2c-w39-candidate",
+        "p3-w38-nomination-adapter"
       ],
       "status": "verified"
     }
@@ -252,7 +778,7 @@
     "系统状态"
   ],
   "not_an_order": true,
-  "overall_status": "partial",
+  "overall_status": "healthy",
   "permissions": {
     "broker_connection": false,
     "execution_permission": false,
@@ -261,7 +787,7 @@
   },
   "preserved_modules": [],
   "schema_version": "dashboard_snapshot.v1",
-  "snapshot_sha256": "c2dce7f5f3e5b0f49378cc5fdc1ff71b970e5df7a97a76ec81e7c5fe50e3210b",
-  "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
+  "snapshot_sha256": "2dc1710c152a396a78152ea810b2b8607045950c3644c13668e772a1171d466e",
+  "source_cutoff": "2026-09-22T15:40:00+08:00",
   "system_id": "NEW_SYSTEM"
 }
