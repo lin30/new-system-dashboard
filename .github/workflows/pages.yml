@@ -11,6 +11,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +32,13 @@ jobs:
           assert p["system_id"] == "NEW_SYSTEM"
           assert p["data_boundary"] == "isolated"
           assert p["external_evidence_sharing"] is False
-          assert p["permissions"]["trade_permission"] is False
+          for key in ("trade_permission","execution_permission","broker_connection","paper_action_enabled"):
+              assert p["permissions"][key] is False
+          assert p["not_an_order"] is True
+          import hashlib
+          unsigned={k:v for k,v in p.items() if k!="snapshot_sha256"}
+          encoded=json.dumps(unsigned,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
+          assert hashlib.sha256(encoded).hexdigest()==p["snapshot_sha256"]
           assert set(p["modules"]) == {
               "formal_weekly",
               "candidate_weekly",
