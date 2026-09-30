@@ -10,18 +10,18 @@ const script=fs.readFileSync(path.join(root,'app.js'),'utf8').replace(/boot\(\);
 vm.runInContext(script,context);
 vm.runInContext('HISTORY_PAYLOAD=history; SECURITY_INDEX=buildSecurityIndex(current,history);',context);
 const value=code=>vm.runInContext(code,context);
-assert.equal(value('highestAuthority(SECURITY_INDEX.get("SZSE:001389"))'),'CONTINUITY');
-assert.equal(value('highestAuthority(SECURITY_INDEX.get("SZSE:301150"))'),'CONTINUITY');
+assert.equal(value('highestAuthority(SECURITY_INDEX.get("SZSE:001389"))'),'FORMAL');
+assert.equal(value('highestAuthority(SECURITY_INDEX.get("SZSE:301150"))'),'FORMAL');
 assert.equal(value('highestAuthority(SECURITY_INDEX.get("SZSE:300502"))'),'FORMAL');
 assert.equal(value('highestAuthority(SECURITY_INDEX.get("SZSE:301018"))'),'CONTINUITY');
-assert.equal(current.modules.formal_weekly.data.formal_cards.length,3);
+assert.equal(current.modules.formal_weekly.data.formal_cards.length,5);
 assert.match(value('contextTimelineHtml(SECURITY_INDEX.get("SZSE:001389"))'),/2026-W37/);
 assert.match(value('contextTimelineHtml(SECURITY_INDEX.get("SZSE:001389"))'),/DOWNGRADE/);
 assert.match(value('contextTimelineHtml(SECURITY_INDEX.get("SZSE:301150"))'),/等待行情/);
 assert.match(value('watchlist(current)'),/2026-10-13/);
 assert.match(value('weekly(current)'),/已兑现对象完整排名/);
 assert.match(value('weekly(current)'),/重要近卡与风险落选/);
-assert.match(value('weekly(current)'),/前周活动卡面未随输入保留/);
+assert.match(value('weekly(current)'),/进卡：广合科技/);
 assert.match(value('opportunities(current)'),/历史提名/);
 assert.match(value('progress(current)'),/历史来源/);
 assert.match(value('renderResearchMarkdown("<script>alert(1)</script>")'),/&lt;script&gt;/);
@@ -29,3 +29,11 @@ assert.equal(history.source_cutoff,'2026-09-22T15:40:00+08:00');
 assert.equal(history.modules.candidate_weekly.data.adoption_pending,true);
 assert.equal(value('nextChecks(SECURITY_INDEX.get("SZSE:301018")).join(" ")').includes('验证公司与订单'),false);
 console.log('continuity, authority, research coverage and escaping checks passed');
+
+const serialized=JSON.stringify(current);
+for(const forbidden of ['NEW-CNY-','account_cash','account_nav','account_sha256','suggested_value','nav_percent','/Users/','/private/tmp/','1000000.00','simulation_account']) {
+  assert.equal(serialized.includes(forbidden),false,`private data found: ${forbidden}`);
+}
+assert.equal(current.modules.formal_weekly.data.research_sections[0].title,'本周变化');
+assert.equal(current.modules.formal_weekly.data.research_sections.length,12);
+assert.equal(current.modules.formal_weekly.data.card_n,5);
