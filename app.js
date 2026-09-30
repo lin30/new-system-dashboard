@@ -10,6 +10,8 @@ const moduleStatus=(p,n)=>p.modules?.[n]?.status||"unknown";
 
 let CURRENT_PAYLOAD=null;
 let SECURITY_INDEX=new Map();
+let HISTORY_PAYLOAD=null;
+let HISTORY_ERROR=null;
 
 const MODULE_LABELS={
   formal_weekly:"FORMAL 正式卡片",
@@ -43,10 +45,10 @@ function securityLink(x,label){
   if(!sid) return esc(name);
   return '<button class="stock-link" type="button" data-security-id="'+esc(sid)+'">'+esc(name)+'</button>';
 }
-function buildSecurityIndex(p){
+function buildSecurityIndex(p,history=null){
   const index=new Map();
-  function walk(v,moduleName,path){
-    if(Array.isArray(v)){v.forEach((x,i)=>walk(x,moduleName,path+"["+i+"]"));return}
+  function walk(v,moduleName,path,source,isHistorical=false){
+    if(Array.isArray(v)){v.forEach((x,i)=>walk(x,moduleName,path+"["+i+"]",source,isHistorical));return}
     if(!v||typeof v!=="object") return;
     const sid=v.security_id||v.ticker;
     const name=v.stock_name||v.name;
@@ -54,16 +56,23 @@ function buildSecurityIndex(p){
       if(!index.has(sid)) index.set(sid,{security_id:sid,stock_name:name,contexts:[]});
       index.get(sid).contexts.push({
         module:moduleName,
-        module_label:MODULE_LABELS[moduleName]||moduleName,
+        module_label:(isHistorical?"历史 ":"")+(MODULE_LABELS[moduleName]||moduleName),
         path,
         data:v,
-        module_status:p.modules?.[moduleName]?.status||"unknown",
-        source_refs:p.modules?.[moduleName]?.source_refs||[]
+        module_status:source.modules?.[moduleName]?.status||"unknown",
+        source_refs:source.modules?.[moduleName]?.source_refs||[],
+        source_cutoff:source.source_cutoff,
+        source_week:source.modules?.[moduleName]?.data?.as_of,
+        is_historical:isHistorical
       });
     }
-    Object.entries(v).forEach(([k,x])=>walk(x,moduleName,path?path+"."+k:k));
+    Object.entries(v).forEach(([k,x])=>walk(x,moduleName,path?path+"."+k:k,source,isHistorical));
   }
-  Object.entries(p.modules||{}).forEach(([moduleName,module])=>walk(module?.data,moduleName,"data"));
+  Object.entries(p.modules||{}).forEach(([moduleName,module])=>{
+    const data=moduleName==="formal_weekly"?module?.data?.formal_cards:module?.data;
+    walk(data,moduleName,"data",p);
+  });
+  if(history)Object.entries(history.modules||{}).forEach(([name,module])=>walk(module?.data,name,"data",history,true));
   return index;
 }
 function valueText(key,v){
@@ -79,6 +88,7 @@ function unique(values){
   return [...new Set(values.filter(v=>v!==null&&v!==undefined&&v!==""))];
 }
 function contextAuthority(ctx){
+  if(ctx.is_historical)return "CONTINUITY";
   if(ctx.module==="formal_weekly") return "FORMAL";
   if(ctx.module==="candidate_weekly") return "CANDIDATE";
   if(ctx.module==="opportunities") return ctx.data?.authority||"NOMINATION";
@@ -96,9 +106,9 @@ function highestAuthority(item){
 }
 function humanSummary(item){
   const set=authoritySet(item);
-  const changes=unique(item.contexts.filter(x=>x.module==="candidate_weekly").map(x=>x.data.weekly_change));
+  const changes=unique(item.contexts.filter(x=>x.module==="candidate_weekly"&&!x.is_historical).map(x=>x.data.weekly_change));
   const gates=unique(item.contexts.filter(x=>x.module==="opportunities").map(x=>GATE_LABELS[x.data.gate_id]||x.data.gate_id));
-  const states=unique(item.contexts.filter(x=>x.module==="watchlist").map(x=>x.data.current_state));
+  const states=unique(item.contexts.filter(x=>x.module==="watchlist"&&!x.is_historical).map(x=>x.data.current_state));
   const top=highestAuthority(item);
   let s="当前最高身份为 "+top+"。";
   if(top==="FORMAL") s+=" 已进入正式研究基线；其他模块记录只作为并列上下文，不覆盖 FORMAL。";
@@ -108,6 +118,7 @@ function humanSummary(item){
   if(changes.length) s+=" 本周变化："+changes.join("、")+"。";
   if(states.length) s+=" 当前台账状态："+states.join("、")+"。";
   if(gates.length) s+=" 研究方向："+gates.join("、")+"。";
+  if(item.contexts.some(x=>x.is_historical))s+=" 历史记录保留其原身份和来源时间；当前身份只由本期记录决定。";
   return s;
 }
 function systemPosition(item){
@@ -120,6 +131,7 @@ function systemPosition(item){
 }
 function humanContextLine(ctx){
   const d=ctx.data||{};
+  if(ctx.is_historical)return (ctx.source_week||"9月22日公开快照")+" · 原身份 "+(d.authority||(ctx.module==="formal_weekly"?"FORMAL":ctx.module==="candidate_weekly"?"CANDIDATE":"NOMINATION"))+" · "+(d.weekly_change||d.current_state||d.current_role||GATE_LABELS[d.gate_id]||"历史记录")+" · 来源 "+fmtTime(ctx.source_cutoff);
   if(ctx.module==="formal_weekly") return "正式卡片 / 正式研究基线";
   if(ctx.module==="candidate_weekly"){
     return "周报变化："+(d.weekly_change||"已进入候选变化记录")+(d.case_key?" · "+d.case_key:"");
@@ -144,8 +156,10 @@ function humanContextLine(ctx){
 function nextChecks(item){
   const checks=[];
   item.contexts.forEach(ctx=>{
+    if(ctx.is_historical)return;
     const d=ctx.data||{};
     if(d.next_trigger) checks.push(d.next_trigger);
+    if(d.next_review)checks.push("下一复核日："+d.next_review);
     if(d.blocker) checks.push("解除阻断："+d.blocker);
     if(Array.isArray(d.blockers)) d.blockers.forEach(x=>checks.push("解除阻断："+x));
     if(ctx.module==="opportunities"){
@@ -170,7 +184,7 @@ function researchReasonHtml(item){
     const stateClass=d.evidence_state==="confirmed"?"good":"muted";
     return '<div class="research-item">'+
       '<div class="row between"><strong>'+esc(GATE_LABELS[d.gate_id]||d.gate_id)+'</strong><span class="'+stateClass+'">'+esc(d.evidence_state||"—")+'</span></div>'+
-      '<div class="small muted">'+esc(d.gate_id||"—")+'</div>'+
+      '<div class="small muted">'+esc(d.gate_id||"—")+(ctx.is_historical?' · 历史提名，原来源 '+esc(fmtTime(ctx.source_cutoff)):'')+'</div>'+
       '<div class="detail-grid compact">'+
         '<div class="detail-key">证据类型</div><div class="detail-value">'+esc(d.evidence_label||"—")+'</div>'+
         '<div class="detail-key">质量档</div><div class="detail-value">'+esc(d.capture_quality_rank??"—")+'</div>'+
@@ -182,7 +196,7 @@ function researchReasonHtml(item){
 }
 function contextTimelineHtml(item){
   const order={formal_weekly:1,candidate_weekly:2,watchlist:3,opportunities:4};
-  return [...item.contexts].sort((a,b)=>(order[a.module]||9)-(order[b.module]||9)).map(ctx=>
+  return [...item.contexts].sort((a,b)=>Number(b.is_historical)-Number(a.is_historical)||(order[a.module]||9)-(order[b.module]||9)).map(ctx=>
     '<div class="timeline-row">'+
       '<div class="timeline-label">'+esc(ctx.module_label)+'</div>'+
       '<div class="timeline-content">'+esc(humanContextLine(ctx))+'</div>'+
@@ -296,6 +310,48 @@ function validate(p){
 function card(title,body,span=4,extra=""){return '<section class="card span-'+span+' '+extra+'"><h3>'+title+'</h3>'+body+'</section>'}
 function kv(k,v){return '<div><div class="kpi">'+esc(v)+'</div><div class="label">'+esc(k)+'</div></div>'}
 
+function renderResearchMarkdown(text){
+  const lines=String(text||"").split("\n");let html="",i=0;
+  const cells=line=>line.trim().replace(/^\||\|$/g,"").split("|").map(x=>x.trim());
+  while(i<lines.length){
+    const line=lines[i].trim();
+    if(!line){i++;continue}
+    if(line.startsWith("|")&&i+1<lines.length&&/^\|?[\s:|-]+\|?$/.test(lines[i+1].trim())){
+      const headers=cells(line);i+=2;const rows=[];
+      while(i<lines.length&&lines[i].trim().startsWith("|"))rows.push(cells(lines[i++]));
+      html+='<div class="table-scroll"><table><thead><tr>'+headers.map(x=>'<th>'+esc(x)+'</th>').join("")+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+row.map(x=>'<td>'+esc(x)+'</td>').join("")+'</tr>').join("")+'</tbody></table></div>';continue;
+    }
+    if(/^### /.test(line)){html+='<h4>'+esc(line.slice(4))+'</h4>';i++;continue}
+    if(line.startsWith("- ")){const items=[];while(i<lines.length&&lines[i].trim().startsWith("- "))items.push(lines[i++].trim().slice(2));html+='<ul>'+items.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul>';continue}
+    html+='<p>'+esc(line)+'</p>';i++;
+  }
+  return html;
+}
+function historyOverview(p){
+  const f=moduleData(p,"formal_weekly"),comparison=f.display_card_comparison;
+  if(!HISTORY_PAYLOAD)return card("历史与连续性",esc(HISTORY_ERROR||"历史快照尚未读取"),12);
+  const previous=moduleData(HISTORY_PAYLOAD,"formal_weekly"),candidate=moduleData(HISTORY_PAYLOAD,"candidate_weekly");
+  const links=rows=>(rows||[]).map(x=>securityLink(x,x.security_id.split(":").pop()+" "+x.stock_name)).join("、");
+  return card("历次展示与正式采用",'<table><thead><tr><th>周次 / 身份</th><th>记录</th><th>说明</th></tr></thead><tbody>'+
+    '<tr><td>'+esc(previous.as_of)+' · 历史FORMAL</td><td>'+links(previous.formal_cards)+'</td><td>原公开基线；来源 '+esc(fmtTime(HISTORY_PAYLOAD.source_cutoff))+'</td></tr>'+
+    '<tr><td>'+esc(candidate.as_of)+' · 历史CANDIDATE</td><td>'+esc(candidate.continuity?.upgrade)+' 升级 / '+esc(candidate.continuity?.downgrade)+' 降级 / '+esc(candidate.continuity?.no_change)+' 无变化</td><td>待采用候选，不能补写为正式采用；广合科技 DOWNGRADE 记录保留</td></tr>'+
+    '<tr><td>'+esc(f.as_of)+' · 当前FORMAL</td><td>'+links(f.formal_cards)+'</td><td>正式current已采用；来源 '+esc(fmtTime(p.source_cutoff))+'</td></tr></tbody></table>'+
+    (comparison?'<div class="divider"></div><p>继续在卡：'+links(comparison.retained)+'；新增展示：'+links(comparison.newly_displayed)+'；本期未入卡：'+links(comparison.not_on_current_card)+'。</p><p>'+esc(comparison.meaning)+'</p>':'')+
+    '<div class="notice">'+esc(f.history_limit||"原历史时钟保留；未提供的周次不补写。")+'</div>',12);
+}
+function historyCandidateHtml(){
+  if(!HISTORY_PAYLOAD)return "";
+  const c=moduleData(HISTORY_PAYLOAD,"candidate_weekly");
+  return card("历史周报候选（原来源保留）",'<p>'+esc(c.as_of)+' · 原来源 '+esc(fmtTime(HISTORY_PAYLOAD.source_cutoff))+' · 待采用</p><div class="pill-list">'+
+    Object.entries(c.continuity||{}).map(([k,v])=>'<span class="pill">'+esc(k)+' '+esc(v)+'</span>').join("")+'</div><p>'+esc(c.upgrade_detail_note)+'</p><div class="pill-list">'+
+    (c.known_changed_securities||[]).map(x=>'<span class="pill">'+securityLink(x)+' '+esc(x.weekly_change)+'</span>').join("")+'</div>',12);
+}
+function historyWatchlistHtml(){
+  if(!HISTORY_PAYLOAD)return "";
+  const items=moduleData(HISTORY_PAYLOAD,"watchlist").items||[];
+  return card("历史关注记录（9月22日原快照）",'<p>原角色与状态保留在下表；当前状态以上方W40记录为准。</p><table><thead><tr><th>标的</th><th>原身份</th><th>原角色 / 状态</th><th>历史变化</th></tr></thead><tbody>'+items.map(x=>'<tr><td>'+securityLink(x,x.security_id.split(":").pop()+" "+x.stock_name)+'</td><td>'+esc(x.authority)+'</td><td>'+esc(x.current_role)+' / '+esc(x.current_state)+'</td><td>'+esc(x.weekly_change||x.continuity)+'</td></tr>').join("")+'</tbody></table>',12);
+}
+
 function overview(p){
   const f=moduleData(p,"formal_weekly"), c=moduleData(p,"candidate_weekly"), w=moduleData(p,"watchlist"), o=moduleData(p,"opportunities");
   const items=w.items||[];
@@ -305,6 +361,7 @@ function overview(p){
     card(p.modules.candidate_weekly.status==="verified"?"最新候选":"候选（本批未供应）",'<div class="row between">'+kv(c.as_of||"本批未供应",c.case_denominator??"未供应")+badge("CANDIDATE")+'</div><div class="divider"></div><div class="pill-list"><span class="pill">UPGRADE '+esc(c.continuity?.upgrade??"未供应")+'</span><span class="pill">DOWNGRADE '+esc(c.continuity?.downgrade??"未供应")+'</span><span class="pill">NO_CHANGE '+esc(c.continuity?.no_change??"未供应")+'</span></div>',4)+
     card("当前条件与新机会",'<div class="row between">'+kv(o.case_denominator_n!==undefined?"本批复核":p.modules.opportunities.status==="verified"?"研究提名":"本批未供应",o.reviewed_case_n??o.nomination_count??"未供应")+badge(o.authority||"NOMINATION")+'</div><div class="divider"></div><div class="small muted">Fast Lane accepted：'+esc(o.fast_lane_acceptance?.accepted_n??"未供应")+'</div>',4)+
     card("连续性对象",'<div class="pill-list">'+cont.map(x=>'<span class="pill">'+securityLink(x,x.stock_name+" "+(x.security_id||"").split(":").pop())+'</span>').join("")+'</div>',6)+
+    historyOverview(p)+
     card("系统边界",'<div class="row"><span class="badge SYSTEM">ISOLATED</span><span class="good">不共享外部证据</span></div><div class="divider"></div><div class="small muted">来源为同一正式周报与已验证日常输出；外部监控模块独立。</div>',6)+
   '</div>';
 }
@@ -317,6 +374,9 @@ function weekly(p){
       card("当前正式周报",kv("周次",f.as_of)+kv("Case 分母",f.case_denominator)+kv("正式研究卡",f.card_n)+'<div class="divider"></div><div class="pill-list">'+counts+'</div>',12)+
       card("正式卡片",'<div class="pill-list">'+(f.formal_cards||[]).map(x=>'<span class="pill">'+securityLink(x,x.security_id.split(":").pop()+" "+x.stock_name)+'</span>').join("")+'</div>',6)+
       card("候选记录",esc(c.as_of||"未供应")+'<div class="small muted">'+esc(p.modules.candidate_weekly.status==="verified"?"独立候选，等待实际采用":"本批没有新候选供应，保留其原来源时间；不当作本周更新。")+'</div>',6)+
+      historyOverview(p)+
+      (f.research_sections?.length?card("W40 周报研究内容",'<p>'+esc(f.research_scope)+'</p><p>原报告SHA '+esc(f.report_markdown_sha256)+'</p>'+f.research_sections.map(s=>'<details'+(["本周做什么","本周先读","重要近卡与风险落选（展示4/4）"].includes(s.title)?' open':'')+'><summary>'+esc(s.title)+'</summary>'+renderResearchMarkdown(s.markdown)+'</details>').join(""),12):'')+
+      historyCandidateHtml()+
     '</div>';
   }
   const changed=c.known_changed_securities||[];
@@ -335,11 +395,13 @@ function weekly(p){
 function watchlist(p){
   const items=moduleData(p,"watchlist").items||[];
   return '<section class="card"><h2>NEW 系统关注标的</h2><table><thead><tr><th>标的</th><th>身份</th><th>当前角色</th><th>状态</th><th>周变化/连续性</th><th>下一触发</th></tr></thead><tbody>'+
-    items.map(x=>'<tr><td>'+securityLink(x) + '<div class="small muted">'+esc((x.security_id||"").split(":").pop())+'</div></td><td>'+badge(x.authority)+'</td><td>'+esc(x.current_role)+'</td><td>'+esc(x.current_state)+'</td><td>'+esc(x.weekly_change||x.continuity)+'</td><td>'+esc(x.next_trigger||x.blocker)+'</td></tr>').join("")+
-  '</tbody></table></section>';
+    items.map(x=>'<tr><td>'+securityLink(x) + '<div class="small muted">'+esc((x.security_id||"").split(":").pop())+'</div></td><td>'+badge(x.authority)+'</td><td>'+esc(x.current_role)+'</td><td>'+esc(x.current_state)+'</td><td>'+esc(x.weekly_change||x.continuity)+'</td><td>'+esc(x.next_trigger||x.blocker)+(x.next_review?'<div>复核 '+esc(x.next_review)+'</div>':'')+'</td></tr>').join("")+
+  '</tbody></table></section>'+historyWatchlistHtml();
 }
 function opportunities(p){
-  const o=moduleData(p,"opportunities"), fl=o.fast_lane_acceptance||{};
+  const active=moduleData(p,"opportunities");
+  const historical=p.modules.opportunities.status==="unavailable"&&HISTORY_PAYLOAD;
+  const o=historical?moduleData(HISTORY_PAYLOAD,"opportunities"):active, fl=o.fast_lane_acceptance||{};
   if(o.case_denominator_n!==undefined){
     const rows=(o.items||[]).map(x=>'<tr><td>'+securityLink(x,x.security_id.split(":").pop()+" "+x.stock_name)+'</td><td>'+badge(x.authority)+'</td><td>'+esc(x.current_state)+'</td><td>'+esc((x.blockers||[]).join("；")||"见同案来源")+'</td></tr>').join("");
     return '<div class="grid">'+
@@ -362,16 +424,19 @@ function opportunities(p){
     '<td>'+esc(fmtTime(x.observed_at))+'</td>'+
     '</tr>').join("");
   return '<div class="grid">'+
+    (historical?card("历史提名 · 来源未刷新",'<p>本批新机会模块未供应；以下恢复9月22日已公开的历史提名，保留原观察时间与TTL，不认作W40新触发。</p><p>历史来源 '+esc(fmtTime(HISTORY_PAYLOAD.source_cutoff))+'</p>',12):'')+
     card("Nomination",'<div class="row between">'+kv("提名记录",o.nomination_record_count||o.nomination_count||0)+badge("NOMINATION")+'</div><div class="divider"></div><div class="small muted">唯一公司 '+esc(o.unique_company_count||"—")+' 家；同一公司命中多个 gate 时保留多条记录。</div>',4)+
     card("Fresh Trigger",kv("新触发",o.fresh_trigger_n||0)+'<div class="small muted">TTL '+esc(o.ttl_days||"—")+' 天</div>',4)+
     card("Fast Lane",kv("Accepted",fl.accepted_n??0)+'<div class="divider"></div><div class="small muted">'+esc(fl.note||"—")+'</div>',4)+
-    card("P3 新候选 · 全部记录",'<div class="table-scroll"><table><thead><tr><th>#</th><th>公司</th><th>研究 Gate</th><th>证据状态</th><th>质量档</th><th>观察时间</th></tr></thead><tbody>'+tableRows+'</tbody></table></div><div class="small muted" style="margin-top:10px">'+esc(o.nomination_semantics||"")+'</div>',12)+
+    card((historical?"历史P3提名":"P3 新候选")+" · 全部记录",'<div class="table-scroll"><table><thead><tr><th>#</th><th>公司</th><th>研究 Gate</th><th>证据状态</th><th>质量档</th><th>观察时间</th></tr></thead><tbody>'+tableRows+'</tbody></table></div><div class="small muted" style="margin-top:10px">'+esc(o.nomination_semantics||"")+'</div>',12)+
     card("主要阻断",'<div class="pill-list">'+(o.main_blockers||[]).map(x=>'<span class="pill">'+esc(x)+'</span>').join("")+'</div>',12)+
   '</div>';
 }
 function progress(p){
-  const c=moduleData(p,"candidate_weekly"), h=moduleData(p,"system_health");
+  const source=HISTORY_PAYLOAD||p;
+  const c=moduleData(source,"candidate_weekly"), h=moduleData(source,"system_health");
   return '<div class="grid">'+
+    card("研究进展的历史来源",'<p>下方恢复原公开快照的研究进展，来源 '+esc(fmtTime(source.source_cutoff))+'；W40补证任务在周报页保留生成、实际尝试与待处理分母。</p>',12)+
     ["p2b","p2c","p3","p4"].map(k=>card(k.toUpperCase(),kv("状态",h[k]||"—"),3)).join("")+
     card("Candidate Coverage",'<div class="row">'+kv("Case",c.case_denominator||0)+kv("增量覆盖",c.report_attack_incremental_coverage?.captured_n||0)+'</div>',6)+
     card("Evidence Maturity",'<div class="pill-list">'+Object.entries(c.evidence_maturity_counts||{}).map(([k,v])=>'<span class="pill">'+esc(k)+' · '+esc(v)+'</span>').join("")+'</div>',6)+
@@ -411,9 +476,23 @@ async function boot(){
     const errors=validate(p);
     if(errors.length){fail(errors);return}
     CURRENT_PAYLOAD=p;
-    SECURITY_INDEX=buildSecurityIndex(p);
+    if(p.history_ref){
+      try{
+        if(p.history_ref.path!=="history/2026-09-22.json")throw new Error("历史路径不在本站允许范围");
+        const archiveResponse=await fetch("./dashboard/"+p.history_ref.path,{cache:"no-store"});
+        if(!archiveResponse.ok)throw new Error("历史HTTP "+archiveResponse.status);
+        const bytes=await archiveResponse.arrayBuffer();
+        const digest=await crypto.subtle.digest("SHA-256",bytes);
+        const hash=Array.from(new Uint8Array(digest)).map(x=>x.toString(16).padStart(2,"0")).join("");
+        if(hash!==p.history_ref.file_sha256)throw new Error("历史文件哈希不匹配");
+        const archive=JSON.parse(new TextDecoder().decode(bytes));
+        if(validate(archive).length||archive.snapshot_sha256!==p.history_ref.snapshot_sha256||archive.source_cutoff!==p.history_ref.source_cutoff)throw new Error("历史快照身份不匹配");
+        HISTORY_PAYLOAD=archive;
+      }catch(error){HISTORY_ERROR="历史快照读取失败："+error.message}
+    }
+    SECURITY_INDEX=buildSecurityIndex(p,HISTORY_PAYLOAD);
     setupSecuritySearch();
-    $("#snapshotMeta").textContent="来源 "+fmtTime(p.source_cutoff)+" · 展示生成 "+fmtTime(p.generated_at)+" · "+(p.overall_status==="healthy"?"完整":"部分模块未供应，保留原数据")+" · "+SECURITY_INDEX.size+" 家标的";
+    $("#snapshotMeta").textContent="当前来源 "+fmtTime(p.source_cutoff)+" · 历史来源 "+fmtTime(HISTORY_PAYLOAD?.source_cutoff)+" · 本期正式卡 "+p.modules.formal_weekly.data.formal_cards.length+" 张 · 含历史索引 "+SECURITY_INDEX.size+" 家标的";
     $("#snapshotHash").textContent="snapshot "+String(p.snapshot_sha256||"").slice(0,12);
     renderNav(p);$("#app").innerHTML=overview(p);
   }catch(e){fail(["无法读取 dashboard/current.json："+e.message])}
