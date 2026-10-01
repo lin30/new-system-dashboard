@@ -4,42 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
+  <meta name="description" content="NEW系统正式研究周报：公司兑现、证据缺口、下一复核与失效条件。">
   <title>NEW系统研究中心</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=investor-20261001">
 </head>
 <body>
+  <a class="skip-link" href="#app">跳至研究内容</a>
   <header class="topbar">
-    <div class="brand">
-      <div class="eyebrow">NEW SYSTEM · READ ONLY</div>
-      <h1>NEW系统研究中心</h1>
-      <div id="snapshotMeta" class="meta">正在读取最新快照…</div>
-    </div>
+    <div class="brand"><div class="eyebrow">NEW SYSTEM / RESEARCH</div><h1>NEW系统研究中心</h1><div id="snapshotMeta" class="meta">正在读取正式研究…</div></div>
     <div class="header-tools">
-      <div class="security-search">
-        <input id="securitySearch" type="search" autocomplete="off" placeholder="搜索标的 / 代码" aria-label="搜索标的或代码">
-        <div id="securitySearchResults" class="search-results" hidden></div>
-      </div>
-      <div class="guard">
-        <span class="dot"></span>
-        <span>trade_permission = false</span>
-      </div>
+      <div class="security-search"><input id="securitySearch" type="search" autocomplete="off" placeholder="搜索公司或股票代码" aria-label="搜索标的或代码"><div id="securitySearchResults" class="search-results" hidden></div></div>
+      <span class="guard"><span class="dot"></span>仅供研究 · 交易权限关闭</span>
     </div>
   </header>
-
   <nav id="nav" class="nav" aria-label="主导航"></nav>
-
-  <main id="app">
-    <section class="loading card">
-      <h2>读取最新数据</h2>
-      <p>页面固定，数据来自 dashboard/current.json。</p>
-    </section>
-  </main>
-
-  <footer>
-    <span>NEW系统与云端监控系统完全隔离，不共享证据、评级、watchlist 或结论。</span>
-    <span id="snapshotHash"></span>
-  </footer>
-
-  <script src="./app.js" defer></script>
+  <main id="app" tabindex="-1"><section class="panel loading"><h2>正在读取正式研究</h2><p>研究依据与页面更新时间分别呈现。</p></section></main>
+  <footer><span>研究结论用于人工复核。NEW系统与外部监控独立，四项权限全部关闭。</span><span id="snapshotHash"></span></footer>
+  <script src="./app.js?v=investor-20261001" defer></script>
 </body>
 </html>
