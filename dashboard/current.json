@@ -7,10 +7,13 @@
     "SYSTEM": "系统审计层"
   },
   "data_boundary": "isolated",
-  "degraded_modules": [],
+  "degraded_modules": [
+    "candidate_weekly",
+    "opportunities"
+  ],
   "external_evidence_sharing": false,
-  "generated_at": "2026-09-22T15:40:00+08:00",
-  "last_successful_snapshot": "2026-09-22T14:35:00+08:00",
+  "generated_at": "2026-10-01T01:32:05.037938+00:00",
+  "last_successful_snapshot": "2026-09-22T15:40:00+08:00",
   "modules": {
     "candidate_weekly": {
       "data": {
@@ -59,45 +62,63 @@
         "upgrade_detail_materialized": false,
         "upgrade_detail_note": "2个UPGRADE已在连续性统计中确认；具体对象需从正式candidate artifact继续结构化抽取，未结构化前不得猜测。"
       },
-      "data_from_previous_snapshot": false,
+      "data_from_previous_snapshot": true,
+      "previous_snapshot_generated_at": "2026-09-22T15:40:00+08:00",
+      "previous_snapshot_source_cutoff": "2026-09-22T15:40:00+08:00",
+      "previous_snapshot_status": "verified",
+      "reason": "not_supplied_by_this_formal_weekly_projection",
       "source_refs": [
         "github-run:35677224787",
         "artifact:10673652770"
       ],
-      "status": "verified"
+      "status": "stale"
     },
     "formal_weekly": {
       "data": {
-        "as_of": "2026-W37",
+        "as_of": "2026-W40",
         "authority": "FORMAL",
+        "card_n": 5,
+        "case_denominator": 1380,
         "current_conclusion_authority": true,
         "formal_cards": [
           {
+            "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
             "security_id": "SZSE:001389",
             "stock_name": "广合科技"
           },
           {
+            "case_key": "company:SZSE:300502|economic_output|optical_transceiver_interconnect",
             "security_id": "SZSE:300502",
             "stock_name": "新易盛"
           },
           {
+            "case_key": "company:SZSE:300308|economic_output|optical_transceiver_interconnect",
             "security_id": "SZSE:300308",
             "stock_name": "中际旭创"
           },
           {
+            "case_key": "company:SZSE:301150|economic_output|electronic_copper_foil",
             "security_id": "SZSE:301150",
             "stock_name": "中一科技"
+          },
+          {
+            "case_key": "company:SZSE:301511|economic_output|electronic_copper_foil",
+            "security_id": "SZSE:301511",
+            "stock_name": "德福科技"
           }
         ],
         "formal_current_written": true,
         "not_an_order": true,
-        "release_sha": "30dfdea009e1bdbb1c971f868c41dab94f836955",
-        "weekly_current_sha256": "07d712fce7224e51d7ece78378ae9362e23ae19941ad939fe7660c91a3f1e43e"
+        "release_sha": "92f4b8a0ab7694d411f2f430a7e97a40b0671bba",
+        "report_authority_at_generation": false,
+        "report_generation_mode": "diagnostic_only",
+        "weekly_current_sha256": "aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a"
       },
       "data_from_previous_snapshot": false,
+      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "history-baseline/current.json",
-        "weekly-current.json"
+        "weekly-current:sha256:aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a",
+        "formal-report:sha256:33cab2a7ee2558ea144fb92c32cf8b4bad48d64df8857ad9bf26d19df32a15d9"
       ],
       "status": "verified"
     },
@@ -659,13 +680,17 @@
         "ttl_days": 10,
         "unique_company_count": 41
       },
-      "data_from_previous_snapshot": false,
+      "data_from_previous_snapshot": true,
+      "previous_snapshot_generated_at": "2026-09-22T15:40:00+08:00",
+      "previous_snapshot_source_cutoff": "2026-09-22T15:40:00+08:00",
+      "previous_snapshot_status": "verified",
+      "reason": "not_supplied_by_this_formal_weekly_projection",
       "source_refs": [
         "github-run:35678568640",
         "artifact:10673114555",
         "p3-nomination:a9c71605a50d50f14fbb4d744f5e6526890d37f839f103957cdb2210093706f7"
       ],
-      "status": "verified"
+      "status": "stale"
     },
     "system_health": {
       "data": {
@@ -673,25 +698,16 @@
         "data_boundary": "NEW_SYSTEM_ONLY",
         "external_evidence_sharing": false,
         "external_monitor_sources_attached": false,
-        "forbidden_external_modules": [
-          "industry",
-          "macro",
-          "robotics",
-          "portfolio"
-        ],
-        "formal_current_unchanged": true,
+        "formal_current_written": true,
+        "natural_p7_status": "not_verified",
         "not_an_order": true,
-        "p2b": "PASS",
-        "p2c": "PASS",
-        "p3": "PASS",
-        "p4": "PASS"
+        "weekly_current_sha256": "aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a"
       },
       "data_from_previous_snapshot": false,
+      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "p2b:35679218849",
-        "p2c:35677224787",
-        "p3:35678568640",
-        "p4:35679218859"
+        "weekly-current:sha256:aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a",
+        "formal-report:sha256:33cab2a7ee2558ea144fb92c32cf8b4bad48d64df8857ad9bf26d19df32a15d9"
       ],
       "status": "verified"
     },
@@ -701,70 +717,51 @@
         "items": [
           {
             "authority": "FORMAL",
-            "continuity": "保留",
-            "current_role": "重点研究",
+            "case_key": "company:SZSE:001389|economic_output|high_speed_pcb",
+            "current_role": "正式周报研究卡",
             "current_state": "等待行情",
-            "next_trigger": "进入技术复核区或出现新的正式业绩上修",
-            "security_id": "SZSE:300308",
-            "stock_name": "中际旭创"
+            "security_id": "SZSE:001389",
+            "stock_name": "广合科技"
           },
           {
             "authority": "FORMAL",
-            "continuity": "保留",
-            "current_role": "重点研究",
-            "current_state": "等待行情",
+            "case_key": "company:SZSE:300502|economic_output|optical_transceiver_interconnect",
+            "current_role": "正式周报研究卡",
+            "current_state": "观察",
             "security_id": "SZSE:300502",
             "stock_name": "新易盛"
           },
           {
             "authority": "FORMAL",
-            "continuity": "保留",
-            "current_role": "重点研究",
+            "case_key": "company:SZSE:300308|economic_output|optical_transceiver_interconnect",
+            "current_role": "正式周报研究卡",
+            "current_state": "等待行情",
+            "security_id": "SZSE:300308",
+            "stock_name": "中际旭创"
+          },
+          {
+            "authority": "FORMAL",
+            "case_key": "company:SZSE:301150|economic_output|electronic_copper_foil",
+            "current_role": "正式周报研究卡",
+            "current_state": "等待行情",
             "security_id": "SZSE:301150",
             "stock_name": "中一科技"
           },
           {
-            "authority": "CONTINUITY",
-            "blockers": [
-              "compute_scope_unresolved",
-              "business_materiality_unknown",
-              "metric_unresolved"
-            ],
-            "current_role": "formal stable denominator历史重点",
-            "current_state": "观察",
-            "security_id": "SSE:600183",
-            "stable_case_count": 2,
-            "stock_name": "生益科技",
-            "thesis_invalidated": false,
-            "weekly_change": "NO_CHANGE"
-          },
-          {
-            "authority": "NOMINATION",
-            "blocker": "stale_nomination",
-            "continuity": "历史观察保留",
-            "current_role": "v2 nomination历史重点观察",
-            "current_state": "等待新触发",
-            "fresh_trigger": false,
-            "observed_at": "2026-08-01T09:00:00+08:00",
-            "security_id": "SZSE:301018",
-            "stock_name": "申菱环境",
-            "thesis_invalidated": false,
-            "ttl_days": 10
-          },
-          {
-            "authority": "CONTINUITY",
-            "current_role": "历史卡片",
-            "current_state": "退出当前卡片",
-            "security_id": "SZSE:001389",
-            "stock_name": "广合科技",
-            "weekly_change": "DOWNGRADE"
+            "authority": "FORMAL",
+            "case_key": "company:SZSE:301511|economic_output|electronic_copper_foil",
+            "current_role": "正式周报研究卡",
+            "current_state": "等待行情",
+            "security_id": "SZSE:301511",
+            "stock_name": "德福科技"
           }
         ]
       },
       "data_from_previous_snapshot": false,
+      "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
       "source_refs": [
-        "p2c-w39-candidate",
-        "p3-w38-nomination-adapter"
+        "weekly-current:sha256:aa7a9ef37aca60b79ac44cacf9a1bc6a021f3a35742e4287d34999c18bc5cf8a",
+        "formal-report:sha256:33cab2a7ee2558ea144fb92c32cf8b4bad48d64df8857ad9bf26d19df32a15d9"
       ],
       "status": "verified"
     }
@@ -778,16 +775,19 @@
     "系统状态"
   ],
   "not_an_order": true,
-  "overall_status": "healthy",
+  "overall_status": "degraded",
   "permissions": {
     "broker_connection": false,
     "execution_permission": false,
     "paper_action_enabled": false,
     "trade_permission": false
   },
-  "preserved_modules": [],
+  "preserved_modules": [
+    "candidate_weekly",
+    "opportunities"
+  ],
   "schema_version": "dashboard_snapshot.v1",
-  "snapshot_sha256": "2dc1710c152a396a78152ea810b2b8607045950c3644c13668e772a1171d466e",
-  "source_cutoff": "2026-09-22T15:40:00+08:00",
+  "snapshot_sha256": "abf9a98beaa3769dd8bec190641332d84d2a39f205432b1eaf0675633fa9d1d3",
+  "source_cutoff": "2026-09-29T13:51:37.558994+08:00",
   "system_id": "NEW_SYSTEM"
 }
