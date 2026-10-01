@@ -1,0 +1,177 @@
+name: sync NEW public projection
+
+on:
+  schedule:
+    # 09:35 Asia/Shanghai
+    - cron: '35 1 * * *'
+    # 00:35 Asia/Shanghai
+    - cron: '35 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: new-public-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SOURCE_TOKEN: ${{ secrets.NEW_SOURCE_READ_TOKEN }}
+    steps:
+      - name: Checkout public target
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Check private source credential
+        id: auth
+        shell: bash
+        run: |
+          if [ -z "${SOURCE_TOKEN}" ]; then
+            echo "ready=false" >> "${GITHUB_OUTPUT}"
+            echo "::notice title=NEW source token missing::Configure repository secret NEW_SOURCE_READ_TOKEN with read-only Contents access to lin30/investment-new."
+          else
+            echo "ready=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Fetch approved public bytes from dashboard-data
+        if: steps.auth.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/new-source/web /tmp/new-source/dashboard
+
+          fetch_raw() {
+            local path="$1"
+            local output="$2"
+            curl --fail --silent --show-error --location               -H "Authorization: Bearer ${SOURCE_TOKEN}"               -H "Accept: application/vnd.github.raw+json"               -H "X-GitHub-Api-Version: 2022-11-28"               "https://api.github.com/repos/lin30/investment-new/contents/${path}?ref=dashboard-data"               -o "${output}"
+          }
+
+          fetch_raw "web/index.html" "/tmp/new-source/web/index.html"
+          fetch_raw "web/app.js" "/tmp/new-source/web/app.js"
+          fetch_raw "web/styles.css" "/tmp/new-source/web/styles.css"
+          fetch_raw "dashboard/current.json" "/tmp/new-source/dashboard/current.json"
+
+      - name: Verify stable NEW-only contract
+        if: steps.auth.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          p = json.loads(Path("/tmp/new-source/dashboard/current.json").read_text(encoding="utf-8"))
+          assert p["system_id"] == "NEW_SYSTEM"
+          assert p["data_boundary"] == "isolated"
+          assert p["external_evidence_sharing"] is False
+          assert p["not_an_order"] is True
+          for key in ("trade_permission", "execution_permission", "broker_connection", "paper_action_enabled"):
+              assert p["permissions"][key] is False
+
+          assert set(p["modules"]) == {
+              "formal_weekly",
+              "candidate_weekly",
+              "watchlist",
+              "opportunities",
+              "system_health",
+          }
+          assert p["navigation"] == [
+              "总览",
+              "周报",
+              "关注标的",
+              "新机会",
+              "研究进展",
+              "系统状态",
+          ]
+
+          unsigned = {k: v for k, v in p.items() if k != "snapshot_sha256"}
+          encoded = json.dumps(
+              unsigned,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode()
+          assert hashlib.sha256(encoded).hexdigest() == p["snapshot_sha256"]
+
+          serialized = json.dumps(p, ensure_ascii=False)
+          for forbidden in (
+              "account_cash",
+              "account_nav",
+              "account_sha256",
+              "suggested_value",
+              "nav_percent",
+              "simulation_account",
+              "/Users/",
+              "/private/tmp/",
+          ):
+              assert forbidden not in serialized
+          PY
+
+      - name: Sync target files atomically through one git commit
+        if: steps.auth.outputs.ready == 'true'
+        id: sync
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          parent="$(git rev-parse HEAD)"
+
+          cp /tmp/new-source/web/index.html index.html
+          cp /tmp/new-source/web/app.js app.js
+          cp /tmp/new-source/web/styles.css styles.css
+          cp /tmp/new-source/dashboard/current.json dashboard/current.json
+
+          git add index.html app.js styles.css dashboard/current.json
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "${GITHUB_OUTPUT}"
+            echo "commit_sha=${parent}" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          git fetch origin main
+          remote="$(git rev-parse origin/main)"
+          if [ "${remote}" != "${parent}" ]; then
+            echo "::error title=main_advanced_during_publish::Target main advanced after checkout; refusing to overwrite."
+            exit 2
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "sync: NEW public projection from dashboard-data"
+          git push origin HEAD:main
+
+          echo "changed=true" >> "${GITHUB_OUTPUT}"
+          echo "commit_sha=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
+
+      - name: Dispatch Pages for the new main commit
+        if: steps.auth.outputs.ready == 'true' && steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api             --method POST             "repos/${GITHUB_REPOSITORY}/actions/workflows/pages.yml/dispatches"             -f ref=main
+
+      - name: Summary
+        shell: bash
+        run: |
+          {
+            echo "## NEW public sync"
+            if [ "${{ steps.auth.outputs.ready }}" != "true" ]; then
+              echo "- status: SKIPPED_SOURCE_TOKEN_MISSING"
+              echo "- required secret: NEW_SOURCE_READ_TOKEN"
+            else
+              echo "- changed: ${{ steps.sync.outputs.changed }}"
+              echo "- target commit: ${{ steps.sync.outputs.commit_sha }}"
+              echo "- source: lin30/investment-new@dashboard-data"
+              echo "- target: lin30/new-system-dashboard@main"
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"
