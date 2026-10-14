@@ -188,7 +188,7 @@ function incrementalSummary(s){
   return section("本周新增变化",'<ul class="change-list">'+s.changes.map(x=>'<li>'+esc(x)+'</li>').join("")+'<div class="count-grid">'+stat("目录披露（非投资候选）",s.disclosure_n)+stat("已取得官方原件",s.official_original_n)+stat("缺正文/来源失败",s.missing_body_n)+stat("研究待核条目",s.research_pending_n)+'</div>'+note(s.coverage_note));
 }
 function forecastSummary(s){
-  return section("新披露：官方与媒体分开核验",'<div class="claim-grid">'+s.claims.map(x=>'<article><span class="state-label">'+esc(x.verification)+'</span><h3>'+esc(x.stock_name)+' <span class="small muted">'+esc(x.security_id.split(":")[1])+'</span></h3><p>公司预告归母 '+esc(x.profit_range_yi)+'亿元，同比 '+esc(x.yoy_range)+'。</p><p class="small muted">'+esc(x.period)+'；未经审计，公司整体口径。</p>'+publicLink(x.source_url,x.source_kind==="official"?"官方预告原文":"媒体转载原文（待官方核对）")+'<p class="small">'+esc(x.next_evidence)+'</p><p class="small muted">1个原始声明；独立确认 '+esc(x.independent_confirmation_n)+'。</p></article>').join("")+'</div>');
+  return section("新披露：官方与媒体分开核验",'<div class="claim-grid">'+s.claims.map(x=>'<article><span class="state-label">'+esc(x.verification)+'</span><h3>'+esc(x.stock_name)+' <span class="small muted">'+esc(x.security_id.split(":")[1])+'</span></h3>'+(x.numeric_status?'<p class="risk">'+esc(x.numeric_status)+'</p>':'<p>公司预告归母 '+esc(x.profit_range_yi)+'亿元，同比 '+esc(x.yoy_range)+'。</p>')+'<p class="small muted">'+esc(x.period)+'；未经审计，公司整体口径。</p>'+publicLink(x.source_url,x.source_kind==="official"?"官方预告原文":"媒体转载原文（待官方核对）")+'<p class="small">'+esc(x.next_evidence)+'</p><p class="small muted">1个原始声明；独立确认 '+esc(x.independent_confirmation_n)+'。</p></article>').join("")+'</div>');
 }
 function decisionSummary(p){
   const f=moduleData(p,"formal_weekly"),items=moduleData(p,"watchlist").items||[];
@@ -213,7 +213,7 @@ function weekly(p){
   const f=moduleData(p,"formal_weekly"),s=f.public_summary;
   if(!s)return legacyWeekly(p);
   if(!moduleIsCurrent(p,"formal_weekly"))return section("本期正式研究未确认",note("当前投影停止呈现新增结论。"));
-  return '<div class="page-heading"><div class="eyebrow">03e正式短周报的公开投影</div><h2>'+esc(f.as_of)+' 短周报</h2><p>正式本机采用 '+esc(fmtTime(s.adopted_at))+'；本次公开已核固定周报；生成链待修复。</p></div>'+publicClock(s)+incrementalSummary(s)+forecastSummary(s)+decisionSummary(p)+backupSummary(s)+section("本期研究正文",(f.research_sections||[]).map(x=>'<details class="report-section"'+(x.title==="本周做什么"?' open':"")+'><summary>'+esc(x.title)+'</summary>'+renderResearchMarkdown(x.markdown)+'</details>').join(""))+historicalCandidates(p);
+  return '<div class="page-heading"><div class="eyebrow">03e正式短周报的公开投影</div><h2>'+esc(f.as_of)+' 短周报</h2><p>正式本机采用 '+esc(fmtTime(s.adopted_at))+'；本次公开已核固定周报；手动生成通过，定时稳定待验。</p></div>'+publicClock(s)+incrementalSummary(s)+forecastSummary(s)+decisionSummary(p)+backupSummary(s)+section("本期研究正文",(f.research_sections||[]).map(x=>'<details class="report-section"'+(x.title==="本周做什么"?' open':"")+'><summary>'+esc(x.title)+'</summary>'+renderResearchMarkdown(x.markdown)+'</details>').join(""))+historicalCandidates(p);
 }
 function progress(p){
   const f=moduleData(p,"formal_weekly");
@@ -223,7 +223,7 @@ function progress(p){
 }
 function health(p){
   if(!moduleData(p,"formal_weekly").public_summary)return legacyHealth(p);
-  return '<div class="page-heading"><div class="eyebrow">本机采用、网页候选与效果验证分别呈现</div><h2>系统状态</h2><p>网页投影生成 '+esc(fmtTime(p.generated_at))+'；此时间不刷新证据与继承判断。</p></div>'+chainSummary(p)+legacyHealth(p);
+  return '<div class="page-heading"><div class="eyebrow">固定周报、手动生成与自然定时分别验收</div><h2>系统状态</h2><p>网页投影生成 '+esc(fmtTime(p.generated_at))+'；此时间不刷新证据与继承判断。</p></div>'+chainSummary(p)+legacyHealth(p);
 }
 
 const renderers={"总览":overview,"周报":weekly,"关注标的":watchlist,"新机会":opportunities,"研究进展":progress,"系统状态":health};

@@ -12,7 +12,7 @@
     "opportunities"
   ],
   "external_evidence_sharing": false,
-  "generated_at": "2026-10-14T06:28:45.373110+00:00",
+  "generated_at": "2026-10-14T07:12:06.398476+00:00",
   "last_successful_snapshot": "2026-09-22T15:40:00+08:00",
   "modules": {
     "candidate_weekly": {
@@ -63,7 +63,7 @@
         "upgrade_detail_note": "2个UPGRADE已在连续性统计中确认；具体对象需从正式candidate artifact继续结构化抽取，未结构化前不得猜测。"
       },
       "data_from_previous_snapshot": true,
-      "previous_snapshot_generated_at": "2026-10-14T06:28:45.373110+00:00",
+      "previous_snapshot_generated_at": "2026-10-14T07:12:06.398476+00:00",
       "previous_snapshot_source_cutoff": "2026-09-22T15:40:00+08:00",
       "previous_snapshot_status": "stale",
       "reason": "not_supplied_by_this_formal_weekly_projection",
@@ -318,12 +318,14 @@
             {
               "independent_confirmation_n": 0,
               "next_evidence": "核同期间实绩、目标产品贡献与回款；预告不提供新增估值或买入资格。",
+              "numeric_status": "按转载为15.43–16.13亿元，官方原件待核。",
+              "numeric_status_code": "media_reprint_units_internally_consistent_primary_pending",
               "original_statement_n": 1,
               "period": "2026-01-01—2026-09-30",
               "profit_range_yi": "15.4292–16.1292",
               "security_id": "SZSE:301536",
               "source_kind": "media",
-              "source_url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESZ_STOCK/2026/2026-10/2026-10-13/12640340.PDF",
+              "source_url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12640340&stockid=301536",
               "stock_name": "星宸科技",
               "verification": "媒体转载 · 待官方核对与案例映射",
               "yoy_range": "663.13%–697.75%"
@@ -334,7 +336,7 @@
           "disclosure_n": 66,
           "disclosure_window": "2026-10-08—2026-10-14",
           "full_seven_day_coverage": false,
-          "generation_status": "生成链待修复：现役03e安装依赖闭包不完整，下一次完整生成会启动失败。固定周报读回有效；修复仍在隔离，尚未正式采用。",
+          "generation_status": "手动生成验证通过，定时稳定待验；跨轮继承修复未采用。",
           "index_declared_cutoff": "2026-10-14 11:04 +0800（仅14日索引声明）",
           "market_scope": "A_SHARE_ONLY",
           "material_cutoff": "2026-10-14T11:47:38.849750+08:00",
@@ -356,7 +358,7 @@
             "title": "披露取证与覆盖边界"
           },
           {
-            "markdown": "- 补21项缺正文/来源失败，保留逐日索引水位。\n- 完成37项研究待核，核公司—产出关系与独立需求。\n- 澳弘电子补目标产品订单与交付；奥士康补AI/HPC贡献与可比变化。\n- 五张活动研究卡复核价格与估值条件。\n- 完整生成链因安装依赖缺失待修复；闭包及队列跨窗修复仍在隔离，尚未正式采用。",
+            "markdown": "- 补21项缺正文/来源失败，保留逐日索引水位。\n- 完成37项研究待核，核公司—产出关系与独立需求。\n- 澳弘电子补目标产品订单与交付；奥士康补AI/HPC贡献与可比变化。\n- 五张活动研究卡复核价格与估值条件。\n- 闭包已补齐并经正式加载器读回，手动完整生成通过；定时稳定待验，跨轮继承修复未采用。",
             "title": "本周补证任务"
           },
           {
@@ -939,7 +941,7 @@
         "unique_company_count": 41
       },
       "data_from_previous_snapshot": true,
-      "previous_snapshot_generated_at": "2026-10-14T06:28:45.373110+00:00",
+      "previous_snapshot_generated_at": "2026-10-14T07:12:06.398476+00:00",
       "previous_snapshot_source_cutoff": "2026-09-22T15:40:00+08:00",
       "previous_snapshot_status": "stale",
       "reason": "not_supplied_by_this_formal_weekly_projection",
@@ -956,7 +958,7 @@
         "authority": "SYSTEM",
         "chain_status": [
           {
-            "gap": "逐日水位不统一，七日全覆盖未证；新生成受依赖缺口阻塞。",
+            "gap": "逐日水位不统一，七日全覆盖未证；定时自然续跑稳定未验。",
             "proven": "固定周报目录纳入66项预告/快报；保留来源失败。",
             "stage": "发现",
             "status": "固定产物已核 · 部分覆盖"
@@ -980,16 +982,16 @@
             "status": "固定产物已核 · 条件研究"
           },
           {
-            "gap": "本次公开固定周报，不代表后续生成链恢复；用户阅读未核。",
-            "proven": "13:23固定周报正式采用；a179数据、19a正文读回仍有效。",
+            "gap": "自然定时与跨轮继承仍待验；隔离新生成没有取代正式周报。",
+            "proven": "固定周报读回仍有效；安装程序的隔离完整手动生成验证通过。",
             "stage": "周报",
             "status": "固定周报已核 · 公开研究投影"
           },
           {
-            "gap": "现役依赖闭包不完整，下一次完整生成会启动失败。闭包及队列跨窗修复仍在隔离，尚未正式采用；自然新窗口未验。",
-            "proven": "正式加载器已复现依赖缺失；既有排程保留。",
+            "gap": "定时自然续跑稳定未验；跨轮继承修复未采用，不代表整条链已自然稳定。",
+            "proven": "03e闭包补齐并经正式加载器读回；隔离完整手动生成exit0。",
             "stage": "定时运行",
-            "status": "生成链待修复 · 隔离候选"
+            "status": "手动生成通过 · 定时稳定待验"
           },
           {
             "gap": "收益评价尚未成熟；运行成功不证明赚钱有效。",
@@ -998,11 +1000,14 @@
             "status": "待验证"
           }
         ],
+        "closure_verified_at": "2026-10-14T14:58:09+08:00",
+        "cross_window_repair_status": "not_adopted",
         "data_boundary": "isolated",
         "external_evidence_sharing": false,
         "external_monitor_sources_attached": false,
         "formal_current_written": true,
-        "generation_chain_status": "repair_required",
+        "generation_chain_status": "manual_generation_verified",
+        "manual_generation_verified_at": "2026-10-14T14:57:04+08:00",
         "natural_p7_status": "unverified",
         "not_an_order": true,
         "web_publication_status": "approved_public_projection",
@@ -1109,7 +1114,7 @@
     "opportunities"
   ],
   "schema_version": "dashboard_snapshot.v1",
-  "snapshot_sha256": "01c6e60e646b0198d089d550279d70fc5dbded86abaa3ffefbe59250c7ee2b16",
+  "snapshot_sha256": "9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22",
   "source_cutoff": "2026-10-14T11:47:38.849750+08:00",
   "system_id": "NEW_SYSTEM"
 }
