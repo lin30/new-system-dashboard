@@ -75,7 +75,7 @@ function section(title,body,cls=""){return '<section class="panel '+cls+'"><h2>'
 function note(text){return '<div class="notice">'+esc(text)+'</div>';}
 function stat(label,value){return '<div class="stat"><strong>'+esc(value)+'</strong><span>'+esc(label)+'</span></div>';}
 function sourcesHtml(sources){
-  const allowed=new Set(["static.cninfo.com.cn","www.cninfo.com.cn","www.szse.cn","www.sse.com.cn","static.sse.com.cn","www.bse.cn","www.bjse.cn"]);
+  const allowed=new Set(["static.cninfo.com.cn","www.cninfo.com.cn","www.szse.cn","disc.static.szse.cn","www.sse.com.cn","static.sse.com.cn","www.bse.cn","www.bjse.cn"]);
   return (sources||[]).map(s=>{
     let url;
     try{url=new URL(s.url);}catch{return "";}
@@ -108,7 +108,7 @@ function freshnessNotice(p){
   const old=["candidate_weekly","opportunities"].filter(n=>!moduleIsCurrent(p,n));
   return old.length?note(old.map(n=>MODULE_LABELS[n]).join("、")+"未提供本期更新，沿用历史记录；其变化不覆盖本期正式研究。"):"";
 }
-function overview(p){
+function legacyOverview(p){
   if(!moduleIsCurrent(p,"formal_weekly"))return section("正式周报未供应",note("本期正式研究无法确认，停止呈现当前结论。历史版本可在周报页查阅。"));
   const cards=moduleData(p,"formal_weekly").formal_cards||[];
   const watches=moduleData(p,"watchlist").items||[];
@@ -145,7 +145,7 @@ function historicalCandidates(p){
   const label=moduleIsCurrent(p,"candidate_weekly")?"本期候选（尚未正式采用）":"历史候选";
   return '<details class="history-fold"><summary>'+label+' · '+esc(c.as_of||"周次未提供")+'</summary><p class="muted">原依据截止 '+esc(fmtTime(moduleClock(p,"candidate_weekly")))+'。候选变化不等同于本期正式研究变化。</p><div class="stats-strip">'+stat("候选升级",c.continuity?.upgrade??"未供应")+stat("候选降级",c.continuity?.downgrade??"未供应")+stat("未变化案件",c.continuity?.no_change??"未供应")+'</div><ul>'+(c.known_changed_securities||[]).map(x=>'<li>'+securityLink(x)+' · '+esc(x.weekly_change)+'（候选记录）</li>').join("")+'</ul>'+note(c.upgrade_detail_note||"未提供的候选细节不补写。")+'</details>';
 }
-function weekly(p){
+function legacyWeekly(p){
   const f=moduleData(p,"formal_weekly");
   if(!moduleIsCurrent(p,"formal_weekly"))return section("历史正式周报",note("本期正式周报未供应，以下内容只保留其原研究时间。")+"<p>"+esc(f.as_of)+" · "+esc(fmtTime(moduleClock(p,"formal_weekly")))+"</p>"+(f.research_sections||[]).map(x=>"<details><summary>"+esc(x.title)+"</summary>"+renderResearchMarkdown(x.markdown)+"</details>").join(""));
   return '<div class="page-heading"><div class="eyebrow">正式报告的公开研究投影</div><h2>'+esc(f.as_of)+' 本期周报</h2><p>研究依据截止 '+esc(fmtTime(moduleClock(p,"formal_weekly")))+'；网页生成时间单独显示，不刷新证据时钟。</p></div>'+freshnessNotice(p)+formalCardsHtml(p)+
@@ -163,18 +163,69 @@ function opportunities(p){
     section(current?"本期提名与覆盖":"历史提名",'<p class="muted">来源截止 '+esc(fmtTime(moduleClock(p,"opportunities")))+'</p><div class="stats-strip">'+stat("提名记录",o.nomination_record_count??o.nomination_count??"未供应")+stat("不同公司",o.unique_company_count??"未供应")+'</div><p>同一公司可以命中多个研究方向，记录数量不等于公司数量。</p>')+
     '<details class="history-fold"'+(current?" open":"")+'><summary>'+(current?"查看本批研究记录":"查看全部历史提名")+' · '+rows.length+'条</summary><div class="table-scroll"><table><thead><tr><th>公司</th><th>研究方向</th><th>证据状态</th><th>原观察时间</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+securityLink(x)+'</td><td>'+esc(GATE_LABELS[x.gate_id]||x.current_state||"未提供")+'</td><td>'+esc(x.evidence_state==="confirmed"?"原记录已确认":"待补证")+'</td><td>'+esc(fmtTime(x.observed_at))+'</td></tr>').join("")+'</tbody></table></div></details>';
 }
-function progress(p){
+function legacyProgress(p){
   const f=moduleData(p,"formal_weekly"),c=moduleData(p,"candidate_weekly");
   const tasks=(f.research_sections||[]).find(s=>s.title==="本周补证任务");
   return '<div class="page-heading"><div class="eyebrow">研究仍缺什么、下一步验证什么</div><h2>研究进展</h2></div>'+section("本期补证任务",tasks?renderResearchMarkdown(tasks.markdown):note("本期具体补证任务未供应。"))+
     section("正式研究的已知限制",'<ul class="event-list">'+(f.formal_cards||[]).map(x=>'<li><div>'+securityLink(x)+'<span>'+esc(x.research?.limitations||"限制明细未供应")+'</span></div></li>').join("")+'</ul>')+
     '<details class="history-fold"><summary>历史候选覆盖与成熟度</summary><p>原来源 '+esc(fmtTime(moduleClock(p,"candidate_weekly")))+'；历史来源统计不代表本期新增进展。</p><p>'+esc(c.case_denominator??"未供应")+'个案件；兑现记录 '+esc(c.evidence_maturity_counts?.realized??"未供应")+'；召回线索 '+esc(c.evidence_maturity_counts?.recall_only??"未供应")+'。</p></details>';
 }
-function health(p){
+function legacyHealth(p){
   return '<div class="page-heading"><div class="eyebrow">更新范围与有效时间</div><h2>数据状态</h2><p>网页生成 '+esc(fmtTime(p.generated_at))+'。研究结论以各模块的原始依据时间为准。</p></div>'+
     section("各模块新鲜度",'<div class="table-scroll"><table><thead><tr><th>模块</th><th>状态</th><th>依据截止</th><th>阅读范围</th></tr></thead><tbody>'+EXPECTED_MODULES.map(n=>'<tr><td>'+MODULE_LABELS[n]+'</td><td>'+esc(STATUS_LABELS[p.modules[n].status]||"未确认")+'</td><td>'+esc(fmtTime(moduleClock(p,n)))+'</td><td>'+esc(moduleIsCurrent(p,n)?"本期供应":"历史保留或未供应，不作为本期新增结论")+'</td></tr>').join("")+'</tbody></table></div>')+
     section("研究与权限边界",'<p>正式周报为研究来源；四项权限全部关闭，无自动交易与券商连接。</p><p>自然交付与经济有效性仍未验证。</p><details><summary>技术血缘与隔离状态</summary><p class="codeish">'+esc(p.snapshot_sha256)+'</p><p>外部证据共享：关闭；仅使用NEW系统研究投影。</p></details>');
 }
+function publicLink(url,label){
+  try{const u=new URL(url);if(u.protocol!=="https:"||u.username||u.password)return "";
+    const official=["static.cninfo.com.cn","www.cninfo.com.cn","www.szse.cn","disc.static.szse.cn","www.sse.com.cn","static.sse.com.cn","www.bse.cn","www.bjse.cn"];
+    const media=["file.finance.sina.com.cn","money.finance.sina.com.cn","vip.stock.finance.sina.com.cn","www.cfi.net.cn"];
+    if(![...official,...media].includes(u.hostname))return "";
+    return '<a class="source-link" target="_blank" rel="noopener noreferrer" href="'+esc(url)+'">'+esc(label)+' ↗</a>';
+  }catch{return "";}
+}
+function publicClock(s){return '<div class="clock-strip"><span>新材料消费截止 '+esc(fmtTime(s.material_cutoff))+'</span><span>继承判断截止 '+esc(fmtTime(s.decision_cutoff))+'</span></div>'+note(s.generation_status);}
+function incrementalSummary(s){
+  return section("本周新增变化",'<ul class="change-list">'+s.changes.map(x=>'<li>'+esc(x)+'</li>').join("")+'<div class="count-grid">'+stat("目录披露（非投资候选）",s.disclosure_n)+stat("已取得官方原件",s.official_original_n)+stat("缺正文/来源失败",s.missing_body_n)+stat("研究待核条目",s.research_pending_n)+'</div>'+note(s.coverage_note));
+}
+function forecastSummary(s){
+  return section("新披露：官方与媒体分开核验",'<div class="claim-grid">'+s.claims.map(x=>'<article><span class="state-label">'+esc(x.verification)+'</span><h3>'+esc(x.stock_name)+' <span class="small muted">'+esc(x.security_id.split(":")[1])+'</span></h3><p>公司预告归母 '+esc(x.profit_range_yi)+'亿元，同比 '+esc(x.yoy_range)+'。</p><p class="small muted">'+esc(x.period)+'；未经审计，公司整体口径。</p>'+publicLink(x.source_url,x.source_kind==="official"?"官方预告原文":"媒体转载原文（待官方核对）")+'<p class="small">'+esc(x.next_evidence)+'</p><p class="small muted">1个原始声明；独立确认 '+esc(x.independent_confirmation_n)+'。</p></article>').join("")+'</div>');
+}
+function decisionSummary(p){
+  const f=moduleData(p,"formal_weekly"),items=moduleData(p,"watchlist").items||[];
+  return section("A股研究建议与等待原因",'<p class="small muted">展示沿用本期周报阅读顺序；本期未新增买入资格。公开页面不提供实时价格、目标价或参与金额。</p><div class="table-scroll"><table class="decision-table"><thead><tr><th>公司</th><th>本期意见</th><th>等待原因与下一核验</th></tr></thead><tbody>'+items.map(x=>{
+    const c=f.formal_cards.find(y=>y.security_id===x.security_id);return '<tr><td>'+securityLink(x)+'</td><td><span class="state-label">'+esc(x.current_state)+'</span></td><td>'+esc(c?.research?.summary)+'<div class="small muted">'+esc(x.next_trigger)+'</div></td></tr>';
+  }).join("")+'</tbody></table></div>');
+}
+function backupSummary(s){
+  return section("后备优先标的：先取证，再判断",'<p class="small muted">两案并列优先取证，仍为条件研究；不是投资排名。旧8月材料本期重新消费，不代表新披露或当前价格吸引力。</p><div class="backup-grid">'+s.backup_priorities.map(x=>'<article><span class="state-label">'+esc(x.priority_label)+' · '+esc(x.status)+'</span><h3>'+esc(x.stock_name)+' <span class="small muted">'+esc(x.security_id.split(":")[1])+'</span></h3><p>'+esc(x.summary)+'</p><div class="small"><strong>下一核验</strong> '+esc(x.next_evidence)+'</div>'+publicLink(x.source_url,"历史官方原件 · 2026H1")+'</article>').join("")+'</div>');
+}
+function chainSummary(p){
+  const rows=moduleData(p,"system_health").chain_status||[];
+  return section("链条能力：当前已证结果与第一缺口",'<p class="small muted">发现 → 正文/证据 → 研究 → 决策 → 周报 → 定时运行 → 投资验证</p><div class="chain-grid">'+rows.map((x,i)=>'<article><div class="eyebrow">'+String(i+1).padStart(2,"0")+'</div><h3>'+esc(x.stage)+'</h3><span class="state-label">'+esc(x.status)+'</span><p>'+esc(x.proven)+'</p><p class="small muted"><strong>第一缺口</strong> '+esc(x.gap)+'</p></article>').join("")+'</div>');
+}
+function overview(p){
+  const f=moduleData(p,"formal_weekly"),s=f.public_summary;
+  if(!s)return legacyOverview(p);
+  if(!moduleIsCurrent(p,"formal_weekly"))return section("本期正式研究未确认",note("停止呈现当前结论；保留原时钟与历史身份。"));
+  return '<section class="decision-hero"><div class="hero-copy"><div class="eyebrow">'+esc(f.as_of)+' · 03e固定周报 / 公开研究投影</div><h2>先看本周变化，再看等待条件</h2><p>仅A股研究。五张活动卡继续等待行情与价格，两项后备研究先补决定性证据；本期未新增买入资格。</p><div class="hero-actions"><button type="button" class="primary-button" data-page="周报">阅读本期短周报 →</button><button type="button" class="text-button" data-page="系统状态">查看链条状态 →</button></div></div><div class="hero-aside">'+stat("本期新增买入资格",s.new_buy_qualification_n)+'<span class="small">缺测不等于无机会</span></div></section>'+publicClock(s)+incrementalSummary(s)+decisionSummary(p)+backupSummary(s)+chainSummary(p);
+}
+function weekly(p){
+  const f=moduleData(p,"formal_weekly"),s=f.public_summary;
+  if(!s)return legacyWeekly(p);
+  if(!moduleIsCurrent(p,"formal_weekly"))return section("本期正式研究未确认",note("当前投影停止呈现新增结论。"));
+  return '<div class="page-heading"><div class="eyebrow">03e正式短周报的公开投影</div><h2>'+esc(f.as_of)+' 短周报</h2><p>正式本机采用 '+esc(fmtTime(s.adopted_at))+'；本次公开已核固定周报；生成链待修复。</p></div>'+publicClock(s)+incrementalSummary(s)+forecastSummary(s)+decisionSummary(p)+backupSummary(s)+section("本期研究正文",(f.research_sections||[]).map(x=>'<details class="report-section"'+(x.title==="本周做什么"?' open':"")+'><summary>'+esc(x.title)+'</summary>'+renderResearchMarkdown(x.markdown)+'</details>').join(""))+historicalCandidates(p);
+}
+function progress(p){
+  const f=moduleData(p,"formal_weekly");
+  if(!f.public_summary)return legacyProgress(p);
+  const task=f.research_sections.find(x=>x.title==="本周补证任务");
+  return '<div class="page-heading"><div class="eyebrow">研究与交付分别验收</div><h2>研究进展与下一闭环</h2></div>'+chainSummary(p)+section("本期补证任务",renderResearchMarkdown(task.markdown))+backupSummary(f.public_summary);
+}
+function health(p){
+  if(!moduleData(p,"formal_weekly").public_summary)return legacyHealth(p);
+  return '<div class="page-heading"><div class="eyebrow">本机采用、网页候选与效果验证分别呈现</div><h2>系统状态</h2><p>网页投影生成 '+esc(fmtTime(p.generated_at))+'；此时间不刷新证据与继承判断。</p></div>'+chainSummary(p)+legacyHealth(p);
+}
+
 const renderers={"总览":overview,"周报":weekly,"关注标的":watchlist,"新机会":opportunities,"研究进展":progress,"系统状态":health};
 
 function validate(p){
@@ -272,3 +323,4 @@ async function boot(){
   }catch(e){fail([e.message]);}
 }
 boot();
+
