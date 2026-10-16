@@ -200,8 +200,9 @@ function backupSummary(s){
   return section("后备优先标的：先取证，再判断",'<p class="small muted">两案并列优先取证，仍为条件研究；不是投资排名。旧8月材料本期重新消费，不代表新披露或当前价格吸引力。</p><div class="backup-grid">'+s.backup_priorities.map(x=>'<article><span class="state-label">'+esc(x.priority_label)+' · '+esc(x.status)+'</span><h3>'+esc(x.stock_name)+' <span class="small muted">'+esc(x.security_id.split(":")[1])+'</span></h3><p>'+esc(x.summary)+'</p><div class="small"><strong>下一核验</strong> '+esc(x.next_evidence)+'</div>'+publicLink(x.source_url,"历史官方原件 · 2026H1")+'</article>').join("")+'</div>');
 }
 function chainSummary(p){
-  const rows=moduleData(p,"system_health").chain_status||[];
-  return section("链条能力：当前已证结果与第一缺口",'<p class="small muted">发现 → 正文/证据 → 研究 → 决策 → 周报 → 定时运行 → 投资验证</p><div class="chain-grid">'+rows.map((x,i)=>'<article><div class="eyebrow">'+String(i+1).padStart(2,"0")+'</div><h3>'+esc(x.stage)+'</h3><span class="state-label">'+esc(x.status)+'</span><p>'+esc(x.proven)+'</p><p class="small muted"><strong>第一缺口</strong> '+esc(x.gap)+'</p></article>').join("")+'</div>');
+  const h=moduleData(p,"system_health"),rows=h.chain_status||[],origin=h.chain_status_origin;
+  const scope=origin?note("历史链条核验记录，原依据 "+fmtTime(origin.source_cutoff)+"；不是本轮新能力评估。当前跨轮继承修复："+(h.cross_window_repair_status==="adopted"?"已采用":"采用证据未供应")+"；原卡片中的修复状态属于原时点。自然定时和投资效果仍未验证。 "):"";
+  return scope+section("链条能力：当前已证结果与第一缺口",'<p class="small muted">发现 → 正文/证据 → 研究 → 决策 → 周报 → 定时运行 → 投资验证</p><div class="chain-grid">'+rows.map((x,i)=>'<article><div class="eyebrow">'+String(i+1).padStart(2,"0")+'</div><h3>'+esc(x.stage)+'</h3><span class="state-label">'+esc(x.status)+'</span><p>'+esc(x.proven)+'</p><p class="small muted"><strong>第一缺口</strong> '+esc(x.gap)+'</p></article>').join("")+'</div>');
 }
 function overview(p){
   const f=moduleData(p,"formal_weekly"),s=f.public_summary;
@@ -222,8 +223,13 @@ function progress(p){
   return '<div class="page-heading"><div class="eyebrow">研究与交付分别验收</div><h2>研究进展与下一闭环</h2></div>'+chainSummary(p)+section("本期补证任务",renderResearchMarkdown(task.markdown))+backupSummary(f.public_summary);
 }
 function health(p){
-  if(!moduleData(p,"formal_weekly").public_summary)return legacyHealth(p);
-  return '<div class="page-heading"><div class="eyebrow">固定周报、手动生成与自然定时分别验收</div><h2>系统状态</h2><p>网页投影生成 '+esc(fmtTime(p.generated_at))+'；此时间不刷新证据与继承判断。</p></div>'+chainSummary(p)+legacyHealth(p);
+  const h=moduleData(p,"system_health"),f=moduleData(p,"formal_weekly");
+  const rows=h.chain_status||[],tasks=(f.research_sections||[]).find(x=>x.title==="本周补证任务");
+  const limits=(f.research_sections||[]).flatMap(x=>String(x.markdown||"").split("\n")).filter(x=>x.startsWith("当前来源限制："));
+  if(!rows.length)return section("链条能力记录未供应",note("当前无法核对原各链条能力、缺口与下一步。"))+legacyHealth(p);
+  const next=section("下一步：原补证任务与当前复核条件",(tasks?renderResearchMarkdown(tasks.markdown):note("原补证任务未供应。"))+
+    '<ul class="event-list">'+(f.formal_cards||[]).map(x=>'<li><div>'+securityLink(x)+'<span>'+esc(x.research?.next_trigger||"复核条件未供应")+' · '+esc(fmtDate(x.research?.review_at))+'</span></div></li>').join("")+'</ul>');
+  return '<div class="page-heading"><div class="eyebrow">固定周报、手动生成与自然定时分别验收</div><h2>系统状态</h2><p>网页投影生成 '+esc(fmtTime(p.generated_at))+'；此时间不刷新证据与继承判断。</p></div>'+limits.map(note).join("")+chainSummary(p)+next+legacyHealth(p);
 }
 
 const renderers={"总览":overview,"周报":weekly,"关注标的":watchlist,"新机会":opportunities,"研究进展":progress,"系统状态":health};

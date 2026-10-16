@@ -12,7 +12,7 @@
     "opportunities"
   ],
   "external_evidence_sharing": false,
-  "generated_at": "2026-10-16T04:13:30.602104+00:00",
+  "generated_at": "2026-10-16T06:47:43.098004+00:00",
   "last_successful_snapshot": "2026-09-22T15:40:00+08:00",
   "modules": {
     "candidate_weekly": {
@@ -387,6 +387,10 @@
           {
             "markdown": "跨轮研究继承修复已正式采用；采用记录时间：2026-10-15T09:57:20.840139+00:00。这只是代码修复采用，不是新报告、行情更新或自然稳定证明。",
             "title": "报告有效性与覆盖影响"
+          },
+          {
+            "markdown": "历史补证任务，原依据 2026-10-14T11:47:38.849750+08:00；保留原任务与原时点，不是本轮新评估。\n\n当前跨轮研究继承修复：已采用；下列原任务中的修复状态属于原时点。自然定时及投资效果仍未验证。\n\n- 补21项缺正文/来源失败，保留逐日索引水位。\n- 完成37项研究待核，核公司—产出关系与独立需求。\n- 澳弘电子补目标产品订单与交付；奥士康补AI/HPC贡献与可比变化。\n- 五张活动研究卡复核价格与估值条件。\n- 闭包已补齐并经正式加载器读回，手动完整生成通过；定时稳定待验，跨轮继承修复未采用。",
+            "title": "本周补证任务"
           }
         ],
         "status_counts": {
@@ -394,16 +398,17 @@
           "wait_evidence": 7,
           "wait_market": 5
         },
-        "weekly_current_sha256": "37e4587f31611e6b1caf039c5f5b44c329cc98826328c7f1559abfbdfb7a72c8"
+        "weekly_current_sha256": "6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92"
       },
       "data_from_previous_snapshot": false,
       "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
       "source_refs": [
-        "weekly-current:sha256:37e4587f31611e6b1caf039c5f5b44c329cc98826328c7f1559abfbdfb7a72c8",
+        "weekly-current:sha256:6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92",
         "formal-report:sha256:1e743df20438d572fc0b0faaf0d74d4ff45bf9eb5064497df5521416cb7e5c23",
         "dashboard-public-projection:structured-research.v2",
         "dashboard-public-projection:research-continuity.v1",
-        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf"
+        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf",
+        "historical-system-health:snapshot-sha256:9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22"
       ],
       "status": "verified"
     },
@@ -980,6 +985,64 @@
     "system_health": {
       "data": {
         "authority": "SYSTEM",
+        "chain_status": [
+          {
+            "gap": "逐日水位不统一，七日全覆盖未证；定时自然续跑稳定未验。",
+            "proven": "固定周报目录纳入66项预告/快报；保留来源失败。",
+            "stage": "发现",
+            "status": "固定产物已核 · 部分覆盖"
+          },
+          {
+            "gap": "21项缺正文；星宸仅完整转载，待官方核对。",
+            "proven": "取得45份官方原件；兴森与浪潮官方数值相符。",
+            "stage": "正文/证据",
+            "status": "固定产物已核 · 有缺口"
+          },
+          {
+            "gap": "37项研究待核；公司—产出关系及独立需求仍有缺口。",
+            "proven": "8家公司、20案例新材料进入既有研究；两案条件分析。",
+            "stage": "研究",
+            "status": "固定产物已核 · 局部消费"
+          },
+          {
+            "gap": "估值与参与条件未闭合；本期未新增买入资格。",
+            "proven": "1380案中47案有本期决策复核；5张活动卡等待行情/价格。",
+            "stage": "决策",
+            "status": "固定产物已核 · 条件研究"
+          },
+          {
+            "gap": "自然定时与跨轮继承仍待验；隔离新生成没有取代正式周报。",
+            "proven": "固定周报读回仍有效；安装程序的隔离完整手动生成验证通过。",
+            "stage": "周报",
+            "status": "固定周报已核 · 公开研究投影"
+          },
+          {
+            "gap": "定时自然续跑稳定未验；跨轮继承修复未采用，不代表整条链已自然稳定。",
+            "proven": "03e闭包补齐并经正式加载器读回；隔离完整手动生成exit0。",
+            "stage": "定时运行",
+            "status": "手动生成通过 · 定时稳定待验"
+          },
+          {
+            "gap": "收益评价尚未成熟；运行成功不证明赚钱有效。",
+            "proven": "已保留前向研究记录。",
+            "stage": "投资验证",
+            "status": "待验证"
+          }
+        ],
+        "chain_status_origin": {
+          "content_sha256": "399bf4e40d4758448af297a9ff00cd29b4d72ab9d06ba797fc9e1e323af43c1b",
+          "generated_at": "2026-10-14T07:12:06.398476+00:00",
+          "snapshot_sha256": "9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22",
+          "source_cutoff": "2026-10-14T11:47:38.849750+08:00",
+          "source_refs": [
+            "weekly-current:sha256:6efbcf9e77b8588a16ebb912e84d037b1842e9d0dd96e32df6ff8e9b32ffdf26",
+            "formal-report:sha256:a179f0b8a1777d06b1b4f6c37f75a195e955f14395e52f5954a62947e62167ac"
+          ],
+          "task_section": {
+            "markdown": "- 补21项缺正文/来源失败，保留逐日索引水位。\n- 完成37项研究待核，核公司—产出关系与独立需求。\n- 澳弘电子补目标产品订单与交付；奥士康补AI/HPC贡献与可比变化。\n- 五张活动研究卡复核价格与估值条件。\n- 闭包已补齐并经正式加载器读回，手动完整生成通过；定时稳定待验，跨轮继承修复未采用。",
+            "title": "本周补证任务"
+          }
+        },
         "cross_window_repair_status": "adopted",
         "data_boundary": "NEW_SYSTEM_ONLY",
         "external_evidence_sharing": false,
@@ -987,16 +1050,17 @@
         "formal_current_written": true,
         "natural_p7_status": "not_verified",
         "not_an_order": true,
-        "weekly_current_sha256": "37e4587f31611e6b1caf039c5f5b44c329cc98826328c7f1559abfbdfb7a72c8"
+        "weekly_current_sha256": "6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92"
       },
       "data_from_previous_snapshot": false,
       "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
       "source_refs": [
-        "weekly-current:sha256:37e4587f31611e6b1caf039c5f5b44c329cc98826328c7f1559abfbdfb7a72c8",
+        "weekly-current:sha256:6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92",
         "formal-report:sha256:1e743df20438d572fc0b0faaf0d74d4ff45bf9eb5064497df5521416cb7e5c23",
         "dashboard-public-projection:structured-research.v2",
         "dashboard-public-projection:research-continuity.v1",
-        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf"
+        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf",
+        "historical-system-health:snapshot-sha256:9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22"
       ],
       "status": "verified"
     },
@@ -1059,11 +1123,12 @@
       "data_from_previous_snapshot": false,
       "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
       "source_refs": [
-        "weekly-current:sha256:37e4587f31611e6b1caf039c5f5b44c329cc98826328c7f1559abfbdfb7a72c8",
+        "weekly-current:sha256:6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92",
         "formal-report:sha256:1e743df20438d572fc0b0faaf0d74d4ff45bf9eb5064497df5521416cb7e5c23",
         "dashboard-public-projection:structured-research.v2",
         "dashboard-public-projection:research-continuity.v1",
-        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf"
+        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf",
+        "historical-system-health:snapshot-sha256:9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22"
       ],
       "status": "verified"
     }
@@ -1089,7 +1154,7 @@
     "opportunities"
   ],
   "schema_version": "dashboard_snapshot.v1",
-  "snapshot_sha256": "7ddc538bc2300af0b229c09fa1894774ff0e3420d5d2065702f1ba13a96f7d5e",
+  "snapshot_sha256": "07fdadea8966147bf67f5adf861325f089397327084a8bdfdcc6fbe1c2a17e5d",
   "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
   "system_id": "NEW_SYSTEM"
 }
