@@ -12,7 +12,7 @@
     "opportunities"
   ],
   "external_evidence_sharing": false,
-  "generated_at": "2026-10-16T06:47:43.098004+00:00",
+  "generated_at": "2026-10-16T12:42:25.834217+00:00",
   "last_successful_snapshot": "2026-09-22T15:40:00+08:00",
   "modules": {
     "candidate_weekly": {
@@ -356,7 +356,7 @@
           }
         },
         "not_an_order": true,
-        "release_sha": "7fcb61c66e4dc0f67f7bb3ca9185f958bbc42f62",
+        "release_sha": "9d31edda9e3f90d98266038267f52bbee222fe10",
         "report_authority_at_generation": false,
         "report_generation_mode": "diagnostic_only",
         "research_sections": [
@@ -375,6 +375,10 @@
           {
             "markdown": "原报告来源水位：2026-10-12T23:30:25.894442+08:00。\n\n原基线决策：2026-10-14T18:28:52.660545+08:00。\n\n新增研究实际消费：2026-10-15T04:52:10.430618+00:00。\n\n原池行情会话：2026-10-14。\n\n新增研究记录不等于全来源覆盖更新；展示生成时钟不重写上述时间。",
             "title": "报告有效性与覆盖影响"
+          },
+          {
+            "markdown": "\n\n## 并购材料的公司研究补充\n\n光库科技｜原Case `company:SZSE:300620|ontology_gap|generic_output:1e53992eb58e8dc8f172dbe54897b6ba5a797cfd32738f2163a790128a7f455b`；新增研究消费 2026-10-16T12:22:18.817494+00:00。\n\n原决策和行情时点保留；本段不是业绩预告、已实现并表或参与资格。\n\n仅消费本次四份并购原文；不代表公告索引全覆盖或其他公司当天没有材料。\n\n- 安捷讯净利润：20477.14万元；2026H1；标的历史口径。PDF物理页434。\n\n- 安捷讯经营现金流：19308.91万元；2026H1；标的历史口径。PDF物理页147。\n\n- 光库上市公司合并经营现金流：-16141.66万元；2026H1；上市公司合并历史口径。PDF物理页102。\n\n- 安捷讯存货增加的现金占用：-9672.00万元；2026H1；标的历史口径。PDF物理页434,435。\n\n- 安捷讯经营性应收增加的现金占用：-12159.33万元；2026H1；标的历史口径。PDF物理页434,435。\n\n- 安捷讯经营性应付增加的现金释放：17983.97万元；2026H1；标的历史口径。PDF物理页434,435。\n\n- 800G/1.6T销量占比假设：41%；原评估基准2025-06-30；预测2026；评估预测假设，非已实现。PDF物理页230。\n\n- 800G/1.6T销量占比假设：81%；原评估基准2025-06-30；预测2030；评估预测假设，非已实现。PDF物理页230。\n\n- 高速组件混合均价假设：51.10元/PCS；原评估基准2025-06-30；预测2026；评估预测假设，非已实现。PDF物理页231。\n\n- 高速组件混合均价假设：62.52元/PCS；原评估基准2025-06-30；预测2030；评估预测假设，非已实现。PDF物理页231。\n\n- 合并备考商誉：12.99亿元；交易假设完成的备考口径；交易假设完成的备考口径。PDF物理页33。\n\n- 安捷讯第一客户销售占比：81.63%；2026H1；标的历史口径。PDF物理页36。\n\n安捷讯历史盈利与经营现金已有原文支持，使收益捕获路径从泛光通信线索收敛到具体标的业务；现金仍受经营性应付增加支撑。混合均价预测依赖高端产品组合提升，同结构价格下降或持平，不能认定已实现全面提价。\n\n仍未满足行动条件：收购尚待审核、注册与交割；标的历史利润和现金不是光库已实现的归母或目标产品收益。公司自述不是独立买方确认，也未证明中际为匿名第一客户。尚缺当前价格、可证估值边界及实际组合/利润/现金验证；旧14日行情不更新，保持原资格和等待条件。\n\n下一证据：核对审核注册及交割并表、客户独立证据、实际800G/1.6T组合和单价毛利、Q3应收应付及现金；3.41亿元为2026+2027两年累计调整口径承诺，不按单年保证或与H1普通净利润直接相减。\n\n- [官方原文](https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-10-15/9e1a7671-e6e0-4a0a-b1c2-24f9555ab426.PDF)｜光库科技：珠海光库科技股份有限公司发行股份、可转换公司债券及支付现金购买资产并募集配套资金暨关联交易报告书（草案）（摘要）（上会稿）；披露2026-10-15T18:42:11+08:00；实际可见2026-10-16T11:34:09.562856+00:00；SourceProof 052d325016147ef1e3bc71f0bc8c04beb34594ed024a6c32aa75a27ad245717b。\n\n- [官方原文](https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-10-15/c553246e-b7cc-4908-9023-1e3b7c0fda4e.PDF)｜光库科技：珠海光库科技股份有限公司关于发行股份、可转换公司债券及支付现金购买资产并募集配套资金暨关联交易报告书（草案）修订说明的公告；披露2026-10-15T18:42:26+08:00；实际可见2026-10-16T11:34:10.892361+00:00；SourceProof 4677f8c9709e4d3b2cda5c942daa8d40566d54f1e5bca9586bfa4dca317ff6bd。\n\n- [官方原文](https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-10-15/de3958d8-7dcb-432a-ac81-01daf24fb376.PDF)｜光库科技：珠海光库科技股份有限公司关于深圳证券交易所审核公司发行股份、可转换公司债券及支付现金购买资产并募集配套资金暨关联交易事项会议安排的公告；披露2026-10-15T18:42:29+08:00；实际可见2026-10-16T11:34:11.013416+00:00；SourceProof 288c1de7c377474e67ceda2417e42b2ba1f17e8426f35f17aaff160da9cdeb9e。\n\n- [官方原文](https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-10-15/827fc492-33f3-4e5b-8219-4c1b5d54cc2c.PDF)｜光库科技：珠海光库科技股份有限公司发行股份、可转换公司债券及支付现金购买资产并募集配套资金暨关联交易报告书（草案）（上会稿）；披露2026-10-15T18:42:26+08:00；实际可见2026-10-16T11:41:50.700777+00:00；SourceProof b2824522620ed93714f5f08d7162e2c3cead016578f5a820c53667852a204cb2。",
+            "title": "本周变化"
           },
           {
             "markdown": "历史已公开研究，原材料截止 2026-10-14T11:47:38.849750+08:00；原决策截止 2026-10-13T22:21:20.664275+08:00；原展示 2026-10-14T07:12:06.398476+00:00。不是本轮新增取证、重新核验或当前参与资格；原来源与限制保留。\n\n浪潮信息（SZSE:000977）｜历史预告记录\n\n当前来源限制：扣非净利润同比存在原文算术冲突，不能将该派生增速当已核结论。\n\n当前已采用报告内的保留／修正备注（非本轮重采）：原文同比与金额/基数算术冲突；暂停该派生增速，保留公司研究\n\n原记录：官方数字相符 · 未审计预告；2026-01-01—2026-09-30；归母预告38–41亿元，同比156.40%–176.64%；未审计，公司整体口径。\n\n原来源：https://www.szse.cn/disc/disk03/finalpage/2026-10-14/1129edb9-14d6-4d75-8636-48fd92303cb0.PDF；原后续核验：核同期间实绩、目标产品贡献与回款；预告不提供新增估值或买入资格。\n\n兴森科技（SZSE:002436）｜历史预告记录\n\n当前已采用报告内的保留／修正备注（非本轮重采）：官方预告字段核对支持公司当期盈利上行假设，仍待实绩验证\n\n原记录：官方数字相符 · 未审计预告；2026-01-01—2026-09-30；归母预告4–4.3亿元，同比204.20%–227.02%；未审计，公司整体口径。\n\n原来源：https://www.szse.cn/disc/disk03/finalpage/2026-10-14/3920be72-c51e-4824-b5f7-8b19173dd487.PDF；原后续核验：核同期间实绩、目标产品贡献与回款；预告不提供新增估值或买入资格。\n\n星宸科技（SZSE:301536）｜历史预告记录\n\n当前已采用报告内的保留／修正备注（非本轮重采）：转载预测初步支持公司当期盈利上行假设，仍待官方/实绩验证\n\n原记录：媒体转载 · 待官方核对与案例映射；2026-01-01—2026-09-30；按转载为15.43–16.13亿元，官方原件待核。；未审计，公司整体口径。\n\n原来源：https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12640340&stockid=301536；原后续核验：核同期间实绩、目标产品贡献与回款；预告不提供新增估值或买入资格。\n\n澳弘电子（SSE:605058）｜历史并列取证问题，非本轮新排名\n\n研究对象收窄至服务器电源用PCB、HDI产能转订单；目标产品订单/交付金额和独立需求尚未证明。\n\n原待核问题：补当前正式原件：目标产品、已交付收入或订单金额/占比、期间及HDI产能关系；再补客户/付款方证据。\n\n原来源：https://static.cninfo.com.cn/finalpage/2026-08-28/1225519568.PDF\n\n奥士康（SZSE:002913）｜历史并列取证问题，非本轮新排名\n\n旧半年报提示AI贡献极小、普通PCB毛利率下降；不能把普通PCB占比或价格回落当成AI捕获。\n\n原待核问题：补较新正式原件：AI/HPC或高速PCB交付金额/占比、利润或毛利贡献及相对2026H1变化；未证则继续等待。\n\n原来源：https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-08-28/3847750e-c8f8-4c6d-ba27-5c75e308f1a3.PDF",
@@ -398,16 +402,16 @@
           "wait_evidence": 7,
           "wait_market": 5
         },
-        "weekly_current_sha256": "6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92"
+        "weekly_current_sha256": "fd75b3bd2a103adf87f94f29d3a635d6e90bb68d423a25223ae3db4921d67d47"
       },
       "data_from_previous_snapshot": false,
-      "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
+      "source_cutoff": "2026-10-16T12:22:18.817494Z",
       "source_refs": [
-        "weekly-current:sha256:6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92",
-        "formal-report:sha256:1e743df20438d572fc0b0faaf0d74d4ff45bf9eb5064497df5521416cb7e5c23",
+        "weekly-current:sha256:fd75b3bd2a103adf87f94f29d3a635d6e90bb68d423a25223ae3db4921d67d47",
+        "formal-report:sha256:bd512b84eea805dfb159674169e7800007be11207224a14159e39ab84546f5a0",
         "dashboard-public-projection:structured-research.v2",
         "dashboard-public-projection:research-continuity.v1",
-        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf",
+        "formal-markdown:sha256:fb0c5f25bfd56909028d0d39a2e44e15c7f6fb32feb8a45a8155004356ec2fd1",
         "historical-system-health:snapshot-sha256:9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22"
       ],
       "status": "verified"
@@ -1050,16 +1054,16 @@
         "formal_current_written": true,
         "natural_p7_status": "not_verified",
         "not_an_order": true,
-        "weekly_current_sha256": "6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92"
+        "weekly_current_sha256": "fd75b3bd2a103adf87f94f29d3a635d6e90bb68d423a25223ae3db4921d67d47"
       },
       "data_from_previous_snapshot": false,
-      "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
+      "source_cutoff": "2026-10-16T12:22:18.817494Z",
       "source_refs": [
-        "weekly-current:sha256:6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92",
-        "formal-report:sha256:1e743df20438d572fc0b0faaf0d74d4ff45bf9eb5064497df5521416cb7e5c23",
+        "weekly-current:sha256:fd75b3bd2a103adf87f94f29d3a635d6e90bb68d423a25223ae3db4921d67d47",
+        "formal-report:sha256:bd512b84eea805dfb159674169e7800007be11207224a14159e39ab84546f5a0",
         "dashboard-public-projection:structured-research.v2",
         "dashboard-public-projection:research-continuity.v1",
-        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf",
+        "formal-markdown:sha256:fb0c5f25bfd56909028d0d39a2e44e15c7f6fb32feb8a45a8155004356ec2fd1",
         "historical-system-health:snapshot-sha256:9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22"
       ],
       "status": "verified"
@@ -1121,13 +1125,13 @@
         ]
       },
       "data_from_previous_snapshot": false,
-      "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
+      "source_cutoff": "2026-10-16T12:22:18.817494Z",
       "source_refs": [
-        "weekly-current:sha256:6378ca3cd7c9ae13ed051bff7967f329ba4cd52a78d611fb277ab7e78c94db92",
-        "formal-report:sha256:1e743df20438d572fc0b0faaf0d74d4ff45bf9eb5064497df5521416cb7e5c23",
+        "weekly-current:sha256:fd75b3bd2a103adf87f94f29d3a635d6e90bb68d423a25223ae3db4921d67d47",
+        "formal-report:sha256:bd512b84eea805dfb159674169e7800007be11207224a14159e39ab84546f5a0",
         "dashboard-public-projection:structured-research.v2",
         "dashboard-public-projection:research-continuity.v1",
-        "formal-markdown:sha256:8fbd55adaf2b7a2d94039cd140168a4f30cab18f9070cdf56527c21895d341bf",
+        "formal-markdown:sha256:fb0c5f25bfd56909028d0d39a2e44e15c7f6fb32feb8a45a8155004356ec2fd1",
         "historical-system-health:snapshot-sha256:9e946401d5c43241fb39625dba5eda94837dccfc741568053b71a5ddb2f4fe22"
       ],
       "status": "verified"
@@ -1154,7 +1158,7 @@
     "opportunities"
   ],
   "schema_version": "dashboard_snapshot.v1",
-  "snapshot_sha256": "07fdadea8966147bf67f5adf861325f089397327084a8bdfdcc6fbe1c2a17e5d",
-  "source_cutoff": "2026-10-15T07:56:47.543922+00:00",
+  "snapshot_sha256": "172848be9dabf717e82900d3ac3117d064b7b5bc1362b5d8c1eaa107513771f7",
+  "source_cutoff": "2026-10-16T12:22:18.817494Z",
   "system_id": "NEW_SYSTEM"
 }
